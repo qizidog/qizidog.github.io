@@ -7,8 +7,8 @@
 
 <head>
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/qizidog/img/favicon.png">
-  <link rel="icon" href="/qizidog/img/favicon.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
@@ -24,20 +24,20 @@ CMake可以说已经成为大部分C++开源项目标配
   <meta name="description" content="CMake以下内容大部分出自：基于VSCode和CMake进行C&#x2F;C++开发「第六讲」CMake  前言：  CMake是一个跨平台的安装编译工具，可以用简单的语句来描述所有平台的安装(编译过程)。 CMake可以说已经成为大部分C++开源项目标配">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CMake笔记">
-<meta property="og:url" content="https://github.com/qizidog/2021/10/02/CMake%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:url" content="https://qizidog.github.io/2021/10/02/CMake%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="qizidog小窝">
 <meta property="og:description" content="CMake以下内容大部分出自：基于VSCode和CMake进行C&#x2F;C++开发「第六讲」CMake  前言：  CMake是一个跨平台的安装编译工具，可以用简单的语句来描述所有平台的安装(编译过程)。 CMake可以说已经成为大部分C++开源项目标配">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://github.com/qizidog/images/C++%E5%9F%BA%E7%A1%80.assets/image-20210627162600154.png">
-<meta property="og:image" content="https://github.com/qizidog/images/C++%E5%9F%BA%E7%A1%80.assets/image-20210627162621215.png">
-<meta property="og:image" content="https://github.com/qizidog/images/C++%E5%9F%BA%E7%A1%80.assets/image-20210627162641617.png">
-<meta property="og:image" content="https://github.com/qizidog/images/C++%E5%9F%BA%E7%A1%80.assets/image-20210627162712443.png">
+<meta property="og:image" content="https://qizidog.github.io/qizidog/images/C++%E5%9F%BA%E7%A1%80.assets/image-20210627162600154.png">
+<meta property="og:image" content="https://qizidog.github.io/qizidog/images/C++%E5%9F%BA%E7%A1%80.assets/image-20210627162621215.png">
+<meta property="og:image" content="https://qizidog.github.io/qizidog/images/C++%E5%9F%BA%E7%A1%80.assets/image-20210627162641617.png">
+<meta property="og:image" content="https://qizidog.github.io/qizidog/images/C++%E5%9F%BA%E7%A1%80.assets/image-20210627162712443.png">
 <meta property="article:published_time" content="2021-10-02T07:28:24.000Z">
 <meta property="article:modified_time" content="2021-10-02T14:54:31.464Z">
 <meta property="article:author" content="qizidog">
 <meta property="article:tag" content="c++">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://github.com/qizidog/images/C++%E5%9F%BA%E7%A1%80.assets/image-20210627162600154.png">
+<meta name="twitter:image" content="https://qizidog.github.io/qizidog/images/C++%E5%9F%BA%E7%A1%80.assets/image-20210627162600154.png">
   
   <title>CMake笔记 - qizidog小窝</title>
 
@@ -45,7 +45,7 @@ CMake可以说已经成为大部分C++开源项目标配
 
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/qizidog/lib/hint/hint.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
 
   
     
@@ -69,17 +69,17 @@ CMake可以说已经成为大部分C++开源项目标配
 <link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
 
 
-<link  rel="stylesheet" href="/qizidog/css/main.css" />
+<link  rel="stylesheet" href="/css/main.css" />
 
 <!-- 自定义样式保持在最底部 -->
 
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"github.com","root":"/qizidog/","version":"1.8.12","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/qizidog/local-search.xml"};
+    var CONFIG = {"hostname":"qizidog.github.io","root":"/","version":"1.8.12","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
   </script>
-  <script  src="/qizidog/js/utils.js" ></script>
-  <script  src="/qizidog/js/color-schema.js" ></script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
 <meta name="generator" content="Hexo 5.4.0"></head>
 
 
@@ -87,7 +87,7 @@ CMake可以说已经成为大部分C++开源项目标配
   <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
-    <a class="navbar-brand" href="/qizidog/">
+    <a class="navbar-brand" href="/">
       <strong>qizidog小窝</strong>
     </a>
 
@@ -106,7 +106,7 @@ CMake可以说已经成为大部分C++开源项目标配
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/qizidog/">
+              <a class="nav-link" href="/">
                 <i class="iconfont icon-home-fill"></i>
                 首页
               </a>
@@ -118,7 +118,7 @@ CMake可以说已经成为大部分C++开源项目标配
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/qizidog/archives/">
+              <a class="nav-link" href="/archives/">
                 <i class="iconfont icon-archive-fill"></i>
                 归档
               </a>
@@ -130,7 +130,7 @@ CMake可以说已经成为大部分C++开源项目标配
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/qizidog/categories/">
+              <a class="nav-link" href="/categories/">
                 <i class="iconfont icon-category-fill"></i>
                 分类
               </a>
@@ -142,7 +142,7 @@ CMake可以说已经成为大部分C++开源项目标配
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/qizidog/tags/">
+              <a class="nav-link" href="/tags/">
                 <i class="iconfont icon-tags-fill"></i>
                 标签
               </a>
@@ -154,7 +154,7 @@ CMake可以说已经成为大部分C++开源项目标配
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/qizidog/about/">
+              <a class="nav-link" href="/about/">
                 <i class="iconfont icon-user-fill"></i>
                 关于
               </a>
@@ -180,7 +180,7 @@ CMake可以说已经成为大部分C++开源项目标配
 </nav>
 
     <div class="banner" id="banner" parallax=true
-         style="background: url('/qizidog/images/post.png') no-repeat center center;
+         style="background: url('/images/post.png') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
@@ -256,14 +256,14 @@ CMake可以说已经成为大部分C++开源项目标配
 <span id="more"></span>
 
 <h3 id="Cross-platform-development"><a href="#Cross-platform-development" class="headerlink" title="Cross-platform development"></a>Cross-platform development</h3><p>Let’s assume you have some cross-platform project with C++ code shared along different platforms/IDEs. Say you use <code>Visual Studio</code> on Windows, <code>Xcode</code> on OSX and <code>Makefile</code> for Linux:</p>
-<p><img src="/qizidog/images/C++%E5%9F%BA%E7%A1%80.assets/image-20210627162600154.png" srcset="/qizidog/img/loading.gif" lazyload></p>
+<p><img src="/qizidog/images/C++%E5%9F%BA%E7%A1%80.assets/image-20210627162600154.png" srcset="/img/loading.gif" lazyload></p>
 <p>What you will do if you want to add new <code>bar.cpp</code> source file? You have to add it to every tool you use:</p>
-<p><img src="/qizidog/images/C++%E5%9F%BA%E7%A1%80.assets/image-20210627162621215.png" srcset="/qizidog/img/loading.gif" lazyload></p>
+<p><img src="/qizidog/images/C++%E5%9F%BA%E7%A1%80.assets/image-20210627162621215.png" srcset="/img/loading.gif" lazyload></p>
 <p>To keep the environment consistent you have to do the similar update several times. And the most important thing is that you have to do it <strong>manually</strong> (arrow marked with a red color on the diagram in this case). Of course such approach is error prone and not flexible.</p>
 <p>CMake solve this design flaw by adding extra step to development process. You can describe your project in <code>CMakeLists.txt</code> file and use CMake to generate tools you currently interested in using cross-platform CMake code:</p>
-<p><img src="/qizidog/images/C++%E5%9F%BA%E7%A1%80.assets/image-20210627162641617.png" srcset="/qizidog/img/loading.gif" lazyload></p>
+<p><img src="/qizidog/images/C++%E5%9F%BA%E7%A1%80.assets/image-20210627162641617.png" srcset="/img/loading.gif" lazyload></p>
 <p>Same action - adding new <code>bar.cpp</code> file, will be done in <strong>one step</strong> now:</p>
-<p><img src="/qizidog/images/C++%E5%9F%BA%E7%A1%80.assets/image-20210627162712443.png" srcset="/qizidog/img/loading.gif" lazyload></p>
+<p><img src="/qizidog/images/C++%E5%9F%BA%E7%A1%80.assets/image-20210627162712443.png" srcset="/img/loading.gif" lazyload></p>
 <p>Note that the bottom part of the diagram <strong>was not changed</strong>. I.e. you still can keep using your favorite tools like <code>Visual Studio/msbuild</code>, <code>Xcode/xcodebuild</code> and <code>Makefile/make</code>!</p>
 <h3 id="语法特性介绍"><a href="#语法特性介绍" class="headerlink" title="语法特性介绍"></a>语法特性介绍</h3><ul>
 <li><p><strong>基本语法格式：指令(参数 1 参数 2…)</strong></p>
@@ -448,7 +448,7 @@ CMake可以说已经成为大部分C++开源项目标配
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/qizidog/categories/cpp/">cpp</a>
+                      <a class="hover-with-bg" href="/categories/cpp/">cpp</a>
                     
                   </div>
                 
@@ -456,7 +456,7 @@ CMake可以说已经成为大部分C++开源项目标配
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/qizidog/tags/c/">c++</a>
+                      <a class="hover-with-bg" href="/tags/c/">c++</a>
                     
                   </div>
                 
@@ -565,18 +565,18 @@ CMake可以说已经成为大部分C++开源项目标配
 
 <script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
 <script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
-<script  src="/qizidog/js/events.js" ></script>
-<script  src="/qizidog/js/plugins.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
 
 <!-- Plugins -->
 
 
-  <script  src="/qizidog/js/local-search.js" ></script>
+  <script  src="/js/local-search.js" ></script>
 
 
 
   
-    <script  src="/qizidog/js/img-lazyload.js" ></script>
+    <script  src="/js/img-lazyload.js" ></script>
   
 
 
@@ -629,7 +629,7 @@ CMake可以说已经成为大部分C++开源项目标配
 
 
 <!-- 主题的启动项 保持在最底部 -->
-<script  src="/qizidog/js/boot.js" ></script>
+<script  src="/js/boot.js" ></script>
 
 
 </body>
