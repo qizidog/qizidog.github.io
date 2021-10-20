@@ -1,0 +1,948 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="世间之奇伟瑰怪非常之观，常在于险远">
+  <meta name="author" content="qizidog">
+  <meta name="keywords" content="">
+  <meta name="description" content="1 Git配置1.1 配置级别及配置项 git配置级别主要有以下3类：   仓库级别 local 【优先级最高】 当前仓库下的.git&#x2F;config文件中  用户级别 global【优先级次之】  windows当前用户目录的 .gitconfig 文件中  系统级别 system【优先级最低】  Git安装目录下的 etc&#x2F;gitconfig 文件中    查看配置项  123456789101">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git笔记">
+<meta property="og:url" content="https://qizidog.github.io/2021/10/20/Git%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="qizidog小窝">
+<meta property="og:description" content="1 Git配置1.1 配置级别及配置项 git配置级别主要有以下3类：   仓库级别 local 【优先级最高】 当前仓库下的.git&#x2F;config文件中  用户级别 global【优先级次之】  windows当前用户目录的 .gitconfig 文件中  系统级别 system【优先级最低】  Git安装目录下的 etc&#x2F;gitconfig 文件中    查看配置项  123456789101">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://qizidog.github.io/images/Git%E7%AC%94%E8%AE%B0.assets/image-20200703105427321.png">
+<meta property="og:image" content="https://qizidog.github.io/images/Git%E7%AC%94%E8%AE%B0.assets/image-20200703105727217.png">
+<meta property="og:image" content="https://qizidog.github.io/images/Git%E7%AC%94%E8%AE%B0.assets/image-20200930105306846.png">
+<meta property="og:image" content="https://qizidog.github.io/images/Git%E7%AC%94%E8%AE%B0.assets/image-20201226111818890.png">
+<meta property="og:image" content="https://qizidog.github.io/images/Git%E7%AC%94%E8%AE%B0.assets/image-20201226111850253.png">
+<meta property="og:image" content="https://qizidog.github.io/images/Git%E7%AC%94%E8%AE%B0.assets/image-20201226111928389.png">
+<meta property="og:image" content="https://qizidog.github.io/images/Git%E7%AC%94%E8%AE%B0.assets/image-20201226111954238.png">
+<meta property="og:image" content="https://qizidog.github.io/images/Git%E7%AC%94%E8%AE%B0.assets/image-20201226173717377.png">
+<meta property="og:image" content="https://qizidog.github.io/images/Git%E7%AC%94%E8%AE%B0.assets/image-20201226173818584.png">
+<meta property="og:image" content="https://qizidog.github.io/images/Git%E7%AC%94%E8%AE%B0.assets/image-20201226173839154.png">
+<meta property="og:image" content="https://qizidog.github.io/images/Git%E7%AC%94%E8%AE%B0.assets/image-20201226173903111.png">
+<meta property="og:image" content="https://qizidog.github.io/images/Git%E7%AC%94%E8%AE%B0.assets/image-20201226173929519.png">
+<meta property="og:image" content="https://qizidog.github.io/images/Git%E7%AC%94%E8%AE%B0.assets/image-20211018010338803.png">
+<meta property="og:image" content="https://qizidog.github.io/images/Git%E7%AC%94%E8%AE%B0.assets/image-20211018190648255.png.png">
+<meta property="og:image" content="https://qizidog.github.io/images/Git%E7%AC%94%E8%AE%B0.assets/image-20210825100118391.png">
+<meta property="article:published_time" content="2021-10-20T03:27:05.000Z">
+<meta property="article:modified_time" content="2021-10-20T03:27:05.330Z">
+<meta property="article:author" content="qizidog">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://qizidog.github.io/images/Git%E7%AC%94%E8%AE%B0.assets/image-20200703105427321.png">
+  
+  <title>Git笔记 - qizidog小窝</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"qizidog.github.io","root":"/","version":"1.8.12","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>qizidog小窝</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/images/post.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Git笔记">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-10-20 11:27" pubdate>
+        2021年10月20日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      20k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      61 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Git笔记</h1>
+            
+            <div class="markdown-body">
+              <h2 id="1-Git配置"><a href="#1-Git配置" class="headerlink" title="1 Git配置"></a>1 Git配置</h2><h3 id="1-1-配置级别及配置项"><a href="#1-1-配置级别及配置项" class="headerlink" title="1.1 配置级别及配置项"></a>1.1 配置级别及配置项</h3><blockquote>
+<p>git配置级别主要有以下3类：</p>
+</blockquote>
+<ol>
+<li><p>仓库级别 local 【优先级最高】 当前仓库下的.git/config文件中</p>
+</li>
+<li><p>用户级别 global【优先级次之】  windows当前用户目录的 .gitconfig 文件中</p>
+</li>
+<li><p>系统级别 system【优先级最低】  Git安装目录下的 etc/gitconfig 文件中</p>
+</li>
+</ol>
+<blockquote>
+<p>查看配置项</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs bash">git config -l  <span class="hljs-comment"># 查看git的所有配置信息</span><br>git config --<span class="hljs-built_in">local</span> -l   <span class="hljs-comment"># 查看仓库配置（必须要进入到具体仓库的目录下）</span><br>git config --global -l  <span class="hljs-comment"># 查看用户配置</span><br>git config --system -l  <span class="hljs-comment"># 查看系统配置</span><br><br><span class="hljs-comment"># 查看指定配置项的值</span><br><span class="hljs-comment"># 格式：git config [--local|--global|--system] --get section.key(默认是获取local配置中内容)</span><br>git config --global --get user.name  <span class="hljs-comment"># 查看用户名</span><br><br><span class="hljs-comment"># 新增一个配置项</span><br><span class="hljs-comment"># 格式: git config [--local|--global|--system] --add section.key value(默认是添加在local配置中)</span><br>git config --global --add user.name2 dogdog<br><br><span class="hljs-comment"># 修改一个配置项</span><br><span class="hljs-comment"># 格式: git config [--local|--global|--system] section.key value(默认是添加在local配置中)</span><br>git config --global user.name2 douglas<br><br><span class="hljs-comment"># 删除一个配置项</span><br><span class="hljs-comment"># 格式：git config [--local|--global|--system] --unset section.key</span><br>git config --global --<span class="hljs-built_in">unset</span> user.name2<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>编辑配置项</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">git config --<span class="hljs-built_in">local</span> -e   <span class="hljs-comment"># 编辑仓库级别配置文件</span><br>git config --global -e  <span class="hljs-comment"># 编辑用户级别配置文件</span><br>git config --system -e  <span class="hljs-comment"># 编辑系统级别配置文件</span><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>基础配置</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">git config --global --add user.name <span class="hljs-string">&quot;your_name&quot;</span><br>git config --global --add user.email <span class="hljs-string">&quot;your_email@gmail.com&quot;</span><br>git config --global init.defaultBranch main  <span class="hljs-comment"># 修改本地分支默认为main，大趋势了</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="1-2-配置SSH公钥"><a href="#1-2-配置SSH公钥" class="headerlink" title="1.2 配置SSH公钥"></a>1.2 配置SSH公钥</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> ~/.ssh  <span class="hljs-comment"># 进入指定目录</span><br>ssh-keygen  <span class="hljs-comment"># 生成公钥</span><br><span class="hljs-comment"># 得到id_rsa和id_rsa.pub两个文件</span><br><span class="hljs-comment"># 将id_rsa.pub的内容复制到github或者gitee的ssh公钥里面</span><br><span class="hljs-comment"># 对于“某些网站”，还需要在config中配置一下相关信息，例如：</span><br>Host git.code.oa.com<br>HostName git.code.oa.com<br>User username<br>Port 22<br>IdentityFile C:/Users/qizizhou/.ssh/id_rsa<br> <br>Host git.woa.com<br>HostName git.woa.com<br>User username<br>Port 22<br>IdentityFile C:/Users/qizizhou/.ssh/id_rsa<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="2-Git核心"><a href="#2-Git核心" class="headerlink" title="2 Git核心"></a>2 Git核心</h2><p>Git理论基础工作区域Git本地有三个工作区域：工作目录（Working Directory）、暂存区(Stage/Index)、资源库(Repository或Git Directory)。如果在加上远程的git仓库(Remote Directory)就可以分为四个工作区域。文件在这四个区域之间的转换关系如下：</p>
+<ul>
+<li>Workspace：工作区，就是你平时存放项目代码的地方；</li>
+<li>Index / Stage：暂存区，用于临时存放你的改动，保存即将提交到文件列表信息；</li>
+<li>Repository：仓库区（或本地仓库），就是安全存放数据的位置，这里面有你提交到所有版本的数据。其中HEAD指向最新放入仓库的版本；</li>
+<li>Remote：远程仓库，托管代码的服务器，可以简单的认为是你项目组中的一台电脑用于远程数据交换。</li>
+</ul>
+<p><strong>Git的工作流程：</strong></p>
+<p><img src="/images/Git%E7%AC%94%E8%AE%B0.assets/image-20200703105427321.png" srcset="/img/loading.gif" lazyload alt="image-20200703105427321"></p>
+<p><img src="/images/Git%E7%AC%94%E8%AE%B0.assets/image-20200703105727217.png" srcset="/img/loading.gif" lazyload alt="image-20200703105727217"></p>
+<blockquote>
+<p>核心命令</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">git init  <span class="hljs-comment"># 初始化一个仓库</span><br>git add xxx  <span class="hljs-comment"># 添加一个文件到暂存区</span><br>git status  <span class="hljs-comment"># 查看git“文件”状态</span><br>git commit -m <span class="hljs-string">&quot;comment&quot;</span>  <span class="hljs-comment"># 提交到本地仓库，并创建一个新的提交节点</span><br>git commit --amend  <span class="hljs-comment"># 用新提交覆盖前一个提交</span><br>git diff  <span class="hljs-comment"># 比较当前工作区和暂存区的文件“内容”</span><br></code></pre></td></tr></table></figure>
+
+<p>注意：</p>
+<ul>
+<li><p>git diff 比较的是文件的内容，而非是否增加或减少了新的文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">git diff  <span class="hljs-comment"># 不加任何参数，将工作区（未add的内容）和暂存区进行比较；</span><br>git diff HEAD  <span class="hljs-comment"># 将工作区与HEAD指针指向的commit进行比较，一般来说我们当前的改动就是在HEAD指向的commit的基础上进行改动；</span><br>git diff --cached  <span class="hljs-comment"># 将暂存区与当前commit进行比较；</span><br>git diff dev  <span class="hljs-comment"># 将工作区与目标分支的最新commit进行比较；</span><br>git diff [commitId_1] [commitId_2]  <span class="hljs-comment"># 将两个commit进行比较。</span><br></code></pre></td></tr></table></figure></li>
+<li><p>git status 只显示文件的状态，不指明具体的变更内容</p>
+</li>
+</ul>
+<h2 id="3-gitignore"><a href="#3-gitignore" class="headerlink" title="3 .gitignore"></a>3 .gitignore</h2><p>在**.gitignore**文件中设置相应的忽略规则，据此实现忽略指定文件的提交。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">*.txt              <span class="hljs-comment"># 忽略所有.txt结尾的文件</span><br>!lib.txt           <span class="hljs-comment"># 但是lib.txt除外</span><br>./temp/            <span class="hljs-comment"># 忽略temp目录下的所有文件</span><br>!./temp/hello.txt  <span class="hljs-comment"># 但是temp下的hello.txt除外</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="4-连接远程仓库"><a href="#4-连接远程仓库" class="headerlink" title="4 连接远程仓库"></a>4 连接远程仓库</h2><p>远程仓库必须事先建立~  注意，近年新创建的仓库，主分支全部==从master变成了main==。不过本地分支和远程分支的名字本来就不需要相同，所以建立恰当的追踪关系即可。</p>
+<blockquote>
+<p>方法一：推荐</p>
+</blockquote>
+<ul>
+<li>先在远程创建一个仓库，clone下来</li>
+<li>把clone下来的文件复制到本地已有的项目里面</li>
+<li>在Idea中，本地项目自动完成和远程仓库的关联</li>
+<li>（因为clone下来的.git文件中记录了远程仓库的信息）</li>
+</ul>
+<p>此方法对Github和Gitee同样有效</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 将远程的master分支和本地的master分支建立追踪关系</span><br><span class="hljs-comment"># 这样使用 git status 的时候就可以看到本地master和远程master哪个更新了</span><br>git branch --set-upstream-to=origin/master master<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>方法二：</p>
+</blockquote>
+<ul>
+<li><p>在已有的项目中执行 git init 初始化git仓库</p>
+</li>
+<li><p>执行下面的命令关联远程已经存在的仓库</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 等同于方法一中将.git文件复制到现有的项目中来</span><br>git remote add origin https://gitee.com/qizidog/GitTest.git<br><br><span class="hljs-comment"># 如果clone的远程库已经设置过关联仓库了，需要通过其他命令修改关联仓库，具体方式通过帮助查看</span><br>git remote --<span class="hljs-built_in">help</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="5-本地分支和远程分支"><a href="#5-本地分支和远程分支" class="headerlink" title="5 本地分支和远程分支"></a>5 本地分支和远程分支</h2><h3 id="5-1-branch操作"><a href="#5-1-branch操作" class="headerlink" title="5.1 branch操作"></a>5.1 branch操作</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash">git branch  <span class="hljs-comment"># 查看本地所有分支 </span><br>git branch -r  <span class="hljs-comment"># 查看远程所有分支，或者git remote, git remote -v</span><br>git branch -a  <span class="hljs-comment"># 查看本地和远程的所有分支</span><br><br>git branch &lt;branchname&gt;  <span class="hljs-comment"># 新建分支</span><br>git checkout &lt;branchname&gt;  <span class="hljs-comment"># 切换分支</span><br>git checkout -b &lt;branchname&gt;  <span class="hljs-comment"># 创建并切换到一个新的分支</span><br>git checkout -b &lt;local_branchname&gt; origin/&lt;remote_branchname&gt;  <span class="hljs-comment"># 创建一个新的分支并关联远程已经存在的分支</span><br>git branch -d &lt;branchname&gt;  <span class="hljs-comment"># 删除本地分支</span><br><br>git branch -m &lt;oldbranch&gt; &lt;newbranch&gt;  <span class="hljs-comment"># 重命名本地分支</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="5-2-fetch操作"><a href="#5-2-fetch操作" class="headerlink" title="5.2 fetch操作"></a>5.2 fetch操作</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git fetch &lt;远程主机名&gt;  <span class="hljs-comment"># 将某个远程主机的更新全部取回本地git fetch &lt;远程主机名&gt; &lt;分支名&gt;  # 只取回远程特定分支的更新</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="5-3-pull操作"><a href="#5-3-pull操作" class="headerlink" title="5.3 pull操作"></a>5.3 pull操作</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git pull &lt;远程主机名&gt; &lt;远程分支名&gt;:&lt;本地分支名&gt;  <span class="hljs-comment"># 将远程主机的某个分支的更新取回，并与本地指定的分支合并git pull &lt;远程主机名&gt; &lt;远程分支名&gt;  # 与当前分支合并时冒号后的部分可省略</span><br></code></pre></td></tr></table></figure>
+
+<p>pull操作相当于fetch操作和merge操作的结合，以下两种写法等效：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 从远程拉取master分支，并与本地当前分支合并git pull origin mastergit fetch origin mastergit merge &lt;FETCH_HEAD&gt;  # 合并分支# git log -p FETCH_HEAD  查看FETCH_HEAD的方法</span><br></code></pre></td></tr></table></figure>
+
+<p>出现错误</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 报错：Git :fatal: refusing to merge unrelated histories 解决方式git pull origin master --allow-unrelated-histories</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="5-4-push操作"><a href="#5-4-push操作" class="headerlink" title="5.4 push操作"></a>5.4 push操作</h3><ul>
+<li><p>推送==指定的本地分支==到==指定的远程分支==</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 将本地某个分支推送到远程的指定分支</span><br>git push &lt;远程主机名&gt; &lt;本地分支名&gt;:&lt;远程分支名&gt;<br></code></pre></td></tr></table></figure></li>
+<li><p>如果==省略远程分支名==，则表示将本地分支推送至与之存在”追踪关系”的远程分支（通常两者同名），如果该远程分支==不存在则会被新建==。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git push origin master<br></code></pre></td></tr></table></figure>
+
+<p>上面命令表示，将本地的master分支推送到origin主机的master分支。如果后者不存在，则会被新建。</p>
+</li>
+<li><p>如果==省略本地分支名==，则表示删除指定的远程分支，因为这等同于推送一个空的本地分支到远程分支。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 慎用！删除远程仓库的分支（注意空格）</span><br>git push origin :master<br><span class="hljs-comment"># 等同于</span><br>git push origin --delete master<br></code></pre></td></tr></table></figure>
+
+<p>上面命令表示删除origin主机的master分支。</p>
+</li>
+<li><p>如果==当前分支==与远程分支之间==存在追踪关系==，则本地分支和远程分支都可以省略。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git push origin<br></code></pre></td></tr></table></figure>
+
+<p>上面命令表示，将当前分支推送到origin主机的对应分支。</p>
+</li>
+<li><p>如果==当前分支只有一个追踪分支==，那么主机名都可以省略。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git push<br></code></pre></td></tr></table></figure></li>
+<li><p>如果当前分支==与多个远程主机存在追踪关系==，则可以使用==-u==选项指定一个==默认主机==，这样以后就可以不加任何参数使用git push。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git push -u origin master<br></code></pre></td></tr></table></figure>
+
+<p>上面命令将本地的master分支推送到origin主机，同时指定origin为默认主机，后面就可以不加任何参数使用git push了。后面遇到过一点问题，本地分支和远程分支的名字不一样时，直接<code>git push</code>会失败，最好还是保持本地分支和远程分支名字一致。</p>
+</li>
+</ul>
+<h3 id="5-5-关联远程仓库"><a href="#5-5-关联远程仓库" class="headerlink" title="5.5 关联远程仓库"></a>5.5 关联远程仓库</h3><p>一般来说，先建立本地仓库和远程仓库的联系，再建立本地分支和远程分支之间的追踪关系。</p>
+<p>绑定远程仓库相关信息的命令均在<code>git remote</code>下，具体使用方式可通过<code>git remote -h</code>查看帮助文档。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) [dogqizi@MacDog qidb (master ✗)]$ git remote -h<br>usage: git remote [-v | --verbose]<br>   or: git remote add [-t &lt;branch&gt;] [-m &lt;master&gt;] [-f] [--tags | --no-tags] [--mirror=&lt;fetch|push&gt;] &lt;name&gt; &lt;url&gt;<br>   or: git remote rename &lt;old&gt; &lt;new&gt;<br>   or: git remote remove &lt;name&gt;<br>   or: git remote set-head &lt;name&gt; (-a | --auto | -d | --delete | &lt;branch&gt;)<br>   or: git remote [-v | --verbose] show [-n] &lt;name&gt;<br>   or: git remote prune [-n | --dry-run] &lt;name&gt;<br>   or: git remote [-v | --verbose] update [-p | --prune] [(&lt;group&gt; | &lt;remote&gt;)...]<br>   or: git remote set-branches [--add] &lt;name&gt; &lt;branch&gt;...<br>   or: git remote get-url [--push] [--all] &lt;name&gt;<br>   or: git remote set-url [--push] &lt;name&gt; &lt;newurl&gt; [&lt;oldurl&gt;]<br>   or: git remote set-url --add &lt;name&gt; &lt;newurl&gt;<br>   or: git remote set-url --delete &lt;name&gt; &lt;url&gt;<br><br>    -v, --verbose         be verbose; must be placed before a subcommand<br><br></code></pre></td></tr></table></figure>
+
+<h3 id="5-6-建立追踪关系"><a href="#5-6-建立追踪关系" class="headerlink" title="5.6 建立追踪关系"></a>5.6 建立追踪关系</h3><p>建立追踪关系后可以简化push指令，也可以在git status时查看本地和远程进度的比较</p>
+<p><strong>建立追踪关系的三种方式：</strong></p>
+<ul>
+<li><p>手动建立追踪关系</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git branch --set-upstream-to=&lt;远程主机名&gt;/&lt;远程分支名&gt; &lt;本地分支名&gt;<br></code></pre></td></tr></table></figure></li>
+<li><p>push时建立追踪关系</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git push -u &lt;远程主机名&gt; &lt;本地分支名&gt;<br></code></pre></td></tr></table></figure></li>
+<li><p>新建分支时建立跟踪关系</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git checkout -b &lt;本地分支名&gt; &lt;远程主机名&gt;/&lt;远程分支名&gt;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>查看追踪关系：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git branch -vv<br></code></pre></td></tr></table></figure>
+
+<p><strong>取消追踪关系</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git branch --unset-upstream<br></code></pre></td></tr></table></figure>
+
+<h3 id="5-7-stash操作"><a href="#5-7-stash操作" class="headerlink" title="5.7 stash操作"></a>5.7 stash操作</h3><p><strong><a target="_blank" rel="noopener" href="https://www.cnblogs.com/fxwoniu/p/13823337.html">应用场景</a>：</strong></p>
+<ol>
+<li>当正在dev分支上开发某个项目，这时项目中出现一个bug，需要紧急修复，但是正在开发的内容只是完成一半，还不想提交，这时可以用git stash命令将修改的内容保存至堆栈区，然后顺利切换到hotfix分支进行bug修复，修复完成后，再次切回到dev分支，从堆栈中恢复刚刚保存的内容。</li>
+<li>由于疏忽，本应该在dev分支开发的内容，却在master上进行了开发，需要重新切回到dev分支上进行开发，可以用git stash将内容保存至堆栈中，切回到dev分支后，再次恢复内容即可。</li>
+</ol>
+<p>总的来说，git stash命令的作用就是将目前还不想提交的但是已经修改的内容进行保存至堆栈中，后续可以在某个分支上恢复出堆栈中的内容。这也就是说，stash中的内容不仅仅可以恢复到原先开发的分支，也可以恢复到其他任意指定的分支上。git stash作用的范围包括工作区和暂存区中的内容，也就是说没有提交的内容都会保存至堆栈中。</p>
+<p>（1）<strong>git stash</strong> save “save message” : 执行存储时，添加备注，方便查找，只有git stash 也要可以的，但查找时不方便识别。</p>
+<p>（2）<strong>git stash list</strong> ：查看stash了哪些存储</p>
+<p>（3）<strong>git stash show</strong> ：显示做了哪些改动，默认show第一个存储,如果要显示其他存贮，后面加stash@{$num}，比如第二个 git stash show stash@{1}</p>
+<p>（4）<strong>git stash show -p</strong> : 显示第一个存储的改动，如果想显示其他存存储，命令：git stash show stash@{$num} -p ，比如第二个：git stash show stash@{1} -p</p>
+<p>（5）<strong>git stash apply</strong> :应用某个存储,但不会把存储从存储列表中删除，默认使用第一个存储,即stash@{0}，如果要使用其他个，git stash apply stash@{$num} ， 比如第二个：git stash apply stash@{1} </p>
+<p>（6）<strong>git stash pop</strong> ：命令恢复之前缓存的工作目录，将缓存堆栈中的对应stash删除，并将对应修改应用到当前的工作目录下,默认为第一个stash,即stash@{0}，如果要应用并删除其他stash，命令：git stash pop stash@{$num} ，比如应用并删除第二个：git stash pop stash@{1}</p>
+<p>（7）<strong>git stash drop</strong> stash@{$num} ：丢弃stash@{$num}存储，从列表中删除这个存储</p>
+<p>（8）<strong>git stash clear</strong> ：删除所有缓存的stash</p>
+<p><strong>参考博客：</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/fxwoniu/p/13823337.html">git stash 命令的应用场景及详解</a> </li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zndxall/p/9586088.html">git stash 用法总结和注意点</a> </li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/yzpbright/article/details/53789641">git如何不commit当前分支的修改而切换到其它分支</a> </li>
+</ul>
+<h3 id="5-8-clone"><a href="#5-8-clone" class="headerlink" title="5.8 clone"></a>5.8 clone</h3><p>下载某一个非常大的repository的时候，如果不是用来做开发，不需要把所有的历史版本信息都clone下来， –depth 1 可以指定只下载最近一次提交的记录，–branch指定只下载某一个指定的分支。如果不指定，一般情况git clone拿到的都是master分支。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> https://github.com/ryanoasis/nerd-fonts.git --depth 1 --branch master<br></code></pre></td></tr></table></figure>
+
+<p>nerd-fonts这个repository，即便只下载master分支最近一次提交，都有1G多。</p>
+<p>如果需要clone多个分支，可以先在本地创建一个分支，然后再pull下来。</p>
+<h2 id="6-版本回退"><a href="#6-版本回退" class="headerlink" title="6 版本回退"></a>6 版本回退</h2><blockquote>
+<p>情况一：未使用 git add 缓存代码时</p>
+</blockquote>
+<p>实际上是从暂存区复制了一份代码来取代当前已经修改的代码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 放弃单个文件修改,注意不要忘记中间的&quot;--&quot;,不写就成了检出分支了!</span><br>git checkout -- filepathname<br><span class="hljs-comment"># 放弃所有的文件修改</span><br>git checkout .<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>情况二：已经使用了 git add 缓存了代码</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 放弃指定文件的缓存</span><br>git reset HEAD filepathname<br><span class="hljs-comment"># 放弃所有的缓存</span><br>git reset HEAD . <br></code></pre></td></tr></table></figure>
+
+<p>此命令仅撤销 git add 命令的操作。使用本命令后，本地的修改并不会消失，而是回到了情况一的状态。若要放弃本地的修改，需再执行情况一的操作。</p>
+<blockquote>
+<p>情况三：已经用 git commit 提交了代码</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 回退到上一次commit前的状态</span><br>git reset --hard HEAD^<br><span class="hljs-comment"># 回退到上上一次commit前的状态</span><br>git reset --hard HEAD^^<br><span class="hljs-comment"># 回退到100次commit前的状态</span><br>git reset --hard HEAD~100<br><span class="hljs-comment"># 回退到指定的版本（[commitId]是指定版本号的前几位）</span><br>git reset --hard [commitId]<br><br><span class="hljs-comment"># 下面三个用来对比着看</span><br>git reset [commitId] --sort，这是最弱的回滚方式，只改变commit信息，不影响暂存区和工作区；<br>git reset [commitId]，不携带参数时，默认只回滚暂存区，也就是把dks8v所在的信息复制到暂存区，但是不影响工作区；<br>git reset [commitId] --hard，这种方式则能回滚工作区和暂存区。<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">git reflog  <span class="hljs-comment"># 查看历史版本信息</span><br>git reflog -n 5  <span class="hljs-comment"># 查看近5条历史版本信息</span><br>git <span class="hljs-built_in">log</span> --pretty=oneline<br></code></pre></td></tr></table></figure>
+
+<p><strong>报错解决：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_40147863/article/details/84558452">git reset –hard HEAD^ 后显示 more?的解决方案</a></strong></p>
+<blockquote>
+<p>情况四：想撤销之前的某一版本，但是又想保留该目标版本后面的版本</p>
+</blockquote>
+<p>比如，我们commit了三个版本（版本一、版本二、 版本三），突然发现版本二不行（如：有bug），想要撤销版本二，但又不想影响撤销版本三的提交，就可以用 git revert 命令来反做版本二，生成新的版本四，这个版本四里会保留版本三的东西，但撤销了版本二的东西。</p>
+<p><img src="/images/Git%E7%AC%94%E8%AE%B0.assets/image-20200930105306846.png" srcset="/img/loading.gif" lazyload alt="image-20200930105306846"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 反做指定的版本（xxxx是指定版本号的前几位）</span><br>git revert -n xxxx<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>情况五：修改 commit 的注释</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 修改完成提交的注释信息</span><br>git commit --amend<br></code></pre></td></tr></table></figure>
+
+<ol>
+<li>git commit –amend，会出现上一次提交时的comment（即vim模式下查看记录）</li>
+<li>按Insert键进入编辑模式，改好后Esc，:wq!保存退出</li>
+<li>git log 查看上一次 commit 的 comment 已经改好。</li>
+</ol>
+<h2 id="7-分支合并操作"><a href="#7-分支合并操作" class="headerlink" title="7 分支合并操作"></a>7 分支合并操作</h2><h3 id="merge"><a href="#merge" class="headerlink" title="merge"></a>merge</h3><p>Git的合并有许多策略，默认情况下Git会帮助我们挑选合适的策略，当然如果我们需要手动指定，可以使用：git merge -s [策略名称]，了解Git合并策略的原理可以使你对合并结果有一个准确的预期。</p>
+<blockquote>
+<p>Fast-forward</p>
+</blockquote>
+<p>Fast-forward是最简单的一种合并策略，如果dev分支是master分支的祖先节点，那么合并<code>git merge dev</code>的话，只会将dev指向master当前位置，Fast-forward是Git合并两个<strong>没有分叉</strong>的分支时的默认行为。</p>
+<blockquote>
+<p>Recursive</p>
+</blockquote>
+<p>Recursive是Git在合并两个<strong>有分叉</strong>的分支时的默认行为，简单的说，是递归的进行三路合并。</p>
+<p><img src="/images/Git%E7%AC%94%E8%AE%B0.assets/image-20201226111818890.png" srcset="/img/loading.gif" lazyload alt="image-20201226111818890"></p>
+<p>这里出现了一个新名词——三路合并（three-way merge），也是我们接下来讲解的重点。我们先搞清楚合并的整体链路。</p>
+<ul>
+<li>首先dev分支的c5k8x与HEAD指向的sf22x，再加上它们的最近公共祖先a23c4先进行一次三路合并；</li>
+<li>然后将合并后的结果拷贝到<strong>暂存区</strong>和<strong>工作区</strong>；</li>
+<li>再然后产生一次新的提交，该提交的祖先为dev和原master；</li>
+</ul>
+<h3 id="分支合并的原理"><a href="#分支合并的原理" class="headerlink" title="分支合并的原理"></a>分支合并的原理</h3><p>首先，我们来看看两个文件如何合并：</p>
+<p>下图所示为test.py中某一行的代码，如果我们要将A/B两个版本合并，就需要确定是A修改了B，还是B修改了A，亦或者两者都修改了，显然这种情况下分辨不出来。</p>
+<p><img src="/images/Git%E7%AC%94%E8%AE%B0.assets/image-20201226111850253.png" srcset="/img/loading.gif" lazyload alt="image-20201226111850253"></p>
+<p>因此，为了实现两个文件的合并，我们引入<strong>三路合并</strong>：</p>
+<p>如下图所示，很显然A与Base版本相同，B版本的修改比A版本新，因此将A/B合并后，得到的就是B版本。</p>
+<p><img src="/images/Git%E7%AC%94%E8%AE%B0.assets/image-20201226111928389.png" srcset="/img/loading.gif" lazyload alt="image-20201226111928389"></p>
+<p>聪明的读者看完上面的例子，就会想到，要是A/B和Base都不一样怎么办？这就是接下来要讲的问题了。</p>
+<h4 id="冲突"><a href="#冲突" class="headerlink" title="冲突"></a>冲突</h4><p>当出现下图这种情况时，一般就需要我们手动解决冲突了。</p>
+<p><img src="/images/Git%E7%AC%94%E8%AE%B0.assets/image-20201226111954238.png" srcset="/img/loading.gif" lazyload alt="image-20201226111954238"></p>
+<p>也就是我们在合并代码时往往会看到的一种情况：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">&lt;&lt;&lt;&lt;&lt;&lt;&lt; <span class="hljs-string">HEAD</span><br><span class="hljs-string">print(&quot;hello&quot;)</span><br><span class="hljs-string">=======</span><br><span class="hljs-string">print(&quot;fxxk&quot;)</span><br><span class="hljs-string">&gt;&gt;&gt;&gt;&gt;&gt;&gt; B</span><br></code></pre></td></tr></table></figure>
+
+<p>对于新手而言，看到这个箭头可能有点摸不着头脑，到底哪个是哪个呢？其实分辨起来很简单，中间的<code>=======</code>是分隔符，到最上方的<code>&lt;&lt;&lt;&lt;&lt;&lt;</code>之间的内容，是HEAD版本，也就是当前的master分支，而到最下方<code>&gt;&gt;&gt;&gt;&gt;&gt;</code>之间的内容，则是分支B的，我们只需要删除箭头，保留所需要的版本即可：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;hello&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>最终合并结果：</p>
+<p><img src="/images/Git%E7%AC%94%E8%AE%B0.assets/image-20201226173717377.png" srcset="/img/loading.gif" lazyload alt="image-20201226173717377"></p>
+<h4 id="递归三路合并"><a href="#递归三路合并" class="headerlink" title="递归三路合并"></a>递归三路合并</h4><p>在实际的生产环境中，Git的分支往往非常繁杂，会导致合并A/B时，能找到多个A/B的共同祖先，而所谓的递归三路合并就是，对它们的共同祖先继续找共同祖先，直到找到唯一一个共同祖先为止，这样可以减少冲突的概率。</p>
+<p><img src="/images/Git%E7%AC%94%E8%AE%B0.assets/image-20201226173818584.png" srcset="/img/loading.gif" lazyload alt="image-20201226173818584"></p>
+<p>如上图所示，我们要合并5和6，就需要先找到5/6的共同祖先——2和3，然后再继续找共同祖先——1，当我们找到唯一祖先时，开始递归三路合并，先对1、2、3进行三路合并，得到临时节点2’/B：</p>
+<p><img src="/images/Git%E7%AC%94%E8%AE%B0.assets/image-20201226173839154.png" srcset="/img/loading.gif" lazyload alt="image-20201226173839154"></p>
+<p>接下来继续对2、5、6进行三路合并，得到7/C：</p>
+<p><img src="/images/Git%E7%AC%94%E8%AE%B0.assets/image-20201226173903111.png" srcset="/img/loading.gif" lazyload alt="image-20201226173903111"></p>
+<h3 id="rebase"><a href="#rebase" class="headerlink" title="rebase"></a>rebase</h3><p>当我们处于dev分支，然后使用git rebase master时，可以理解为把dev分支上的部分在master分支后面重新提交了一遍（重演），具体看下图：</p>
+<p><img src="/images/Git%E7%AC%94%E8%AE%B0.assets/image-20201226173929519.png" srcset="/img/loading.gif" lazyload alt="image-20201226173929519"></p>
+<p>首先找到dev分支和master分支的祖先a23c4，然后从a23c4到dev所在路径上的节点，都通过回放的方式插入到master之后，注意，这里“复制”的过程中，commitId是会改变的。同时，dev旧分支上的节点因为没有了引用则会被丢弃。</p>
+<p><strong>⚠️该篇章内容源自某篇公众号推文，当时做笔记忘了附上文章出处，此处冒犯了，作者可联系我加上出处或删除内容～</strong></p>
+<h2 id="8-Git提交规范"><a href="#8-Git提交规范" class="headerlink" title="8 Git提交规范"></a>8 Git提交规范</h2><h3 id="8-1-总体方案"><a href="#8-1-总体方案" class="headerlink" title="8.1 总体方案"></a>8.1 总体方案</h3><blockquote>
+<p>目的</p>
+</blockquote>
+<ul>
+<li><strong>统一团队 <code>Git commit</code> 日志标准，便于后续代码 review，版本发布以及日志自动化生成等等</strong>。</li>
+<li><strong>统一团队的 Git 工作流，包括分支使用、tag 规范、issue 等</strong></li>
+</ul>
+<blockquote>
+<p>Git commit 日志参考案例</p>
+</blockquote>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/angular/angular">angular</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/cpselvis/commit-message-test-project">commit-message-test-project</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/istanbuljs/babel-plugin-istanbul">babel-plugin-istanbul</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/conventional-changelog/conventional-changelog">conventional-changelog</a></li>
+</ul>
+<p><img src="/images/Git%E7%AC%94%E8%AE%B0.assets/image-20211018010338803.png" srcset="/img/loading.gif" lazyload alt="image-20211018010338803"></p>
+<h3 id="8-2-Git-commit日志基本规范"><a href="#8-2-Git-commit日志基本规范" class="headerlink" title="8.2 Git commit日志基本规范"></a>8.2 Git commit日志基本规范</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">&lt;<span class="hljs-built_in">type</span>&gt;(&lt;scope&gt;): &lt;subject&gt;<br>&lt;BLANK LINE&gt;<br>&lt;body&gt;<br>&lt;BLANK LINE&gt;<br>&lt;footer&gt;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>type</strong></p>
+</blockquote>
+<p>type代表某次提交的类型，比如是修复一个bug还是增加一个新的feature。</p>
+<ul>
+<li>feat： 新增 feature</li>
+<li>fix: 修复 bug</li>
+<li>docs: 仅仅修改了文档，比如 README, CHANGELOG, CONTRIBUTE等等</li>
+<li>style: 仅仅修改了空格、格式缩进、逗号等等，不改变代码逻辑</li>
+<li>refactor: 代码重构，没有加新功能或者修复 bug</li>
+<li>perf: 优化相关，比如提升性能、体验</li>
+<li>test: 测试用例，包括单元测试、集成测试等</li>
+<li>chore: 改变构建流程、或者增加依赖库、工具等</li>
+<li>revert: 回滚到上一个版本</li>
+</ul>
+<blockquote>
+<p><strong>scope</strong></p>
+</blockquote>
+<p><code>scope</code>用于说明 commit 影响的范围，比如数据层、控制层、视图层等等，视项目不同而不同。</p>
+<blockquote>
+<p><strong>subject</strong></p>
+</blockquote>
+<p><code>subject</code>是 commit 目的的简短描述，不超过50个字符。</p>
+<ul>
+<li>以动词开头，使用第一人称现在时，比如<code>change</code>，而不是<code>changed</code>或<code>changes</code></li>
+<li>第一个字母小写</li>
+<li>结尾不加句号（<code>.</code>）</li>
+</ul>
+<blockquote>
+<p><strong>body</strong></p>
+</blockquote>
+<p>body 部分是对本次 commit 的详细描述，可以分成多行。下面是一个范例。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash">More detailed explanatory text, <span class="hljs-keyword">if</span> necessary.  Wrap it to <br>about 72 characters or so. <br><br>Further paragraphs come after blank lines.<br><br>- Bullet points are okay, too<br>- Use a hanging indent<br></code></pre></td></tr></table></figure>
+
+<p>有两个注意点。</p>
+<ul>
+<li>使用第一人称现在时，比如使用<code>change</code>而不是<code>changed</code>或<code>changes</code>。</li>
+<li>应该说明代码变动的动机，以及与以前行为的对比。</li>
+</ul>
+<blockquote>
+<p><strong>footer</strong></p>
+</blockquote>
+<p>footer 部分只用于两种情况。</p>
+<p><strong>（1）不兼容变动</strong></p>
+<p>如果当前代码与上一个版本不兼容，则 Footer 部分以<code>BREAKING CHANGE</code>开头，后面是对变动的描述、以及变动理由和迁移方法。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs bash">BREAKING CHANGE: isolate scope bindings definition has changed.<br><br>    To migrate the code follow the example below:<br><br>    Before:<br><br>    scope: &#123;<br>      myAttr: <span class="hljs-string">&#x27;attribute&#x27;</span>,<br>    &#125;<br><br>    After:<br><br>    scope: &#123;<br>      myAttr: <span class="hljs-string">&#x27;@&#x27;</span>,<br>    &#125;<br><br>    The removed `inject` wasn<span class="hljs-string">&#x27;t generaly useful for directives so there should be no code using it.</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>（2）关闭 Issue</strong></p>
+<p>如果当前 commit 针对某个issue，那么可以在 Footer 部分关闭这个 issue 。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">Closes <span class="hljs-comment">#234</span><br></code></pre></td></tr></table></figure>
+
+<p>也可以一次关闭多个 issue 。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">Closes <span class="hljs-comment">#123, #245, #992</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>格式要求：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 标题行：50个字符以内，描述主要变更内容</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># 主体内容：更详细的说明文本，建议72个字符以内。 需要描述的信息包括:</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># * 为什么这个变更是必须的? 它可能是用来修复一个bug，增加一个feature，提升性能、可靠性、稳定性等等</span><br><span class="hljs-comment"># * 他如何解决这个问题? 具体描述解决问题的步骤</span><br><span class="hljs-comment"># * 是否存在副作用、风险? </span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># 尾部：如果需要的化可以添加一个链接到issue地址或者其它文档，或者关闭某个issue。</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>参考博客：</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/feflow/git-commit-style-guide">git-commit-style-guide</a> </li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/daysme/p/7722474.html">Git 提交的正确姿势：Commit message 编写指南</a> </li>
+</ul>
+<h3 id="8-3-Git分支与版本发布规范"><a href="#8-3-Git分支与版本发布规范" class="headerlink" title="8.3 Git分支与版本发布规范"></a>8.3 Git分支与版本发布规范</h3><ul>
+<li>基本原则：master为保护分支，不直接在master上进行代码修改和提交。</li>
+<li>开发日常需求或者项目时，从master分支上checkout一个feature分支进行开发或者bugfix分支进行bug修复，功能测试完毕并且项目发布上线后，将feature分支合并到主干master，并且打Tag发布，最后删除开发分支。分支命名规范：<ul>
+<li>分支版本命名规则：分支类型 _ 分支发布时间 _ 分支功能。比如：feat_20170401_fairy_flower</li>
+<li>分支类型包括：feat、 fix、refactor三种类型，即新功能开发、bug修复和代码重构</li>
+<li>时间使用年月日进行命名，不足2位补0</li>
+<li>分支功能命名使用snake case命名法，即下划线命名。</li>
+</ul>
+</li>
+<li>Tag包括3位版本，前缀使用v。比如v1.2.31。Tag命名规范：<ul>
+<li>新功能开发使用第2位版本号，bug修复使用第3位版本号</li>
+<li>核心基础库或者Node中间价可以在大版本发布请使用灰度版本号，在版本后面加上后缀，用中划线分隔。alpha或者belta后面加上次数，即第几次alpha：<ul>
+<li>v2.0.0-alpha.1</li>
+<li>v2.0.0-belta.1</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>版本正式发布前需要生成changelog文档，然后再发布上线。</li>
+</ul>
+<h3 id="8-4-commit模板"><a href="#8-4-commit模板" class="headerlink" title="8.4 commit模板"></a>8.4 commit模板</h3><p><em>事先说明，这里只是记录一下有这么一种配置方式，但是相比于下面的其他方式，该方式显得不太让人满意，推荐使用后面的其他配置方式。</em></p>
+<p>为了更好地遵循Git Comment发布规范，可以在git的全局变量中配置一个commit模板，每次执行 <code>git commit</code> 指令（不携带其他参数）的时候，就会通过指定的编辑器打开这个模板，方便提交comment。通过以下方式配置的环境会记录在 <code>~/.gitconfig</code> 中，也可以直接修改该文件改变配置。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 指定使用的模板文件（我在家目录下放了一个名叫.git_commit_template的模板）</span><br>git config --global commit.template ~/.git_commit_template<br><span class="hljs-comment"># 指定使用的编辑器（默认就是vim，所以其实不指定也可以）</span><br>git config --global core.editor vim<br></code></pre></td></tr></table></figure>
+
+<p><code>.git_commit_template</code>模板文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># &lt;type&gt;(&lt;scope&gt;): &lt;subject&gt;</span><br><br><span class="hljs-comment"># &lt;body&gt;</span><br><br><span class="hljs-comment"># &lt;footer&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="8-5-validate-commit-msg"><a href="#8-5-validate-commit-msg" class="headerlink" title="8.5 validate-commit-msg"></a>8.5 validate-commit-msg</h3><p><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/validate-commit-msg">validate-commit-msg</a>是一个托管在npm平台的工具包，用来约束git commit的comment规范。<del>似乎只是校验comment是否符合规范，但是并不会引导你去编写符合规范的comment。<strong>折腾了一段时间，感觉不是很符合我的预期，这里仅作记录。</strong></del>整理完最佳实践后又回过头来看了下这个接入方法，其实用的工具都是差不多的，只是README写的不详细，后端人员一下子理解不了。</p>
+<p>接入方法参考<a target="_blank" rel="noopener" href="https://github.com/cpselvis/commit-message-test-project">commit-message-test-project</a>项目。具体步骤如下：</p>
+<ul>
+<li>第一步：在工程跟目录下的package.json文件加入如下代码所示的scripts和dependencies内容，版本号为3位版本号（通过npm安装）。</li>
+</ul>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs json">&#123;<br>    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;application-name&quot;</span>,<br>    <span class="hljs-attr">&quot;version&quot;</span>: <span class="hljs-string">&quot;0.1.0&quot;</span>,<br>    <span class="hljs-attr">&quot;scripts&quot;</span>: &#123;<br>        <span class="hljs-attr">&quot;commitmsg&quot;</span>: <span class="hljs-string">&quot;validate-commit-msg&quot;</span>,<br>        <span class="hljs-attr">&quot;commit&quot;</span>: <span class="hljs-string">&quot;git-cz &quot;</span>,<br>        <span class="hljs-attr">&quot;changelog&quot;</span>: <span class="hljs-string">&quot;conventional-changelog -p angular -i CHANGELOG.md -s -r 0&quot;</span><br>    &#125;,<br>    <span class="hljs-attr">&quot;devDependencies&quot;</span>: &#123;<br>        <span class="hljs-attr">&quot;commitizen&quot;</span>: <span class="hljs-string">&quot;^2.3.0&quot;</span>,<br>        <span class="hljs-attr">&quot;validate-commit-msg&quot;</span>: <span class="hljs-string">&quot;^2.11.1&quot;</span>,<br>        <span class="hljs-attr">&quot;conventional-changelog-cli&quot;</span>: <span class="hljs-string">&quot;^1.2.0&quot;</span>,<br>        <span class="hljs-attr">&quot;husky&quot;</span>: <span class="hljs-string">&quot;^0.13.1&quot;</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>第二步：在工程根目录新建.vcmrc文件，并且文件内容为</li>
+</ul>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs json">&#123;<br>    <span class="hljs-attr">&quot;helpMessage&quot;</span>: <span class="hljs-string">&quot;\nPlease fix your commit message (and consider using https://www.npmjs.com/package/commitizen)\n&quot;</span>,<br>    <span class="hljs-attr">&quot;types&quot;</span>: [<br>        <span class="hljs-string">&quot;feat&quot;</span>,<br>        <span class="hljs-string">&quot;fix&quot;</span>,<br>        <span class="hljs-string">&quot;docs&quot;</span>,<br>        <span class="hljs-string">&quot;style&quot;</span>,<br>        <span class="hljs-string">&quot;refactor&quot;</span>,<br>        <span class="hljs-string">&quot;perf&quot;</span>,<br>        <span class="hljs-string">&quot;test&quot;</span>,<br>        <span class="hljs-string">&quot;chore&quot;</span>,<br>        <span class="hljs-string">&quot;revert&quot;</span><br>    ],<br>    <span class="hljs-attr">&quot;warnOnFail&quot;</span>: <span class="hljs-literal">false</span>,<br>    <span class="hljs-attr">&quot;autoFix&quot;</span>: <span class="hljs-literal">false</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>接入后的操作流程</strong></p>
+<ul>
+<li>第一步：创建一个feature分支或者bugfix分支</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ git checkout -b feature_infinite_load    <span class="hljs-comment"># 切换到一个feature分支或者bug fix分支</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>第二步：将代码提交到本地Git仓库，并填写符合要求的Commit message格式</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ git add .<br>$ git commit                               <span class="hljs-comment"># 此处不要加任何参数，比如-m</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>第三步：将代码同步到远程Git仓库</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ git push origin feature_infinite_load    <span class="hljs-comment"># 将修改发布到远程仓库 </span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>第四步：自动生成changelog，并打Tag发布</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ tnpm run changelog             <span class="hljs-comment"># 使用npm script中的changlog命令直接从git元数据生成日志。</span><br>$ git tag v0.1.0<br>$ git push origin v0.1.0<br></code></pre></td></tr></table></figure>
+
+<h3 id="8-6-Git-Commit-Template"><a href="#8-6-Git-Commit-Template" class="headerlink" title="8.6 Git Commit Template"></a>8.6 Git Commit Template</h3><p>上面的操作和配置还有有点复杂，而且不是那么智能，在<strong>idea</strong>中可以安装<strong>Git Commit Template</strong>插件，通过该插件可以根据提示填写commit信息，由插件负责组织commit comment的格式。</p>
+<p><img src="/images/Git%E7%AC%94%E8%AE%B0.assets/image-20211018190648255.png.png" srcset="/img/loading.gif" lazyload alt="image-20211018190648255.png"></p>
+<p>这种方式的话，直接填空就行了，不过只能在idea中使用（或者别的IDE），稍有不足。</p>
+<h3 id="8-7-最佳实践"><a href="#8-7-最佳实践" class="headerlink" title="8.7 最佳实践"></a>8.7 最佳实践</h3><p>🙏感谢 @前端左小白 整理该内容，并且在我寻求最佳实践的同一天发布了bilibili教学视频，对我帮助很大。</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV193411C7XE">git commit 最佳实践，commitizen + husky + commitlint 规范化校验</a> </li>
+<li><a target="_blank" rel="noopener" href="https://github.com/zuoxiaobai/commitizen-practice-demo">commitizen-practice-demo</a> </li>
+</ul>
+<p>整个最佳实践分为3个部分，分别是：</p>
+<ol>
+<li>commitizen引导式comment填写</li>
+<li>husky+commitlint强制性规范校验</li>
+<li>standard-version生成changelog。</li>
+</ol>
+<p>由于我并不是前端工程师，强迫症导致不喜欢在工程目录留存一些多余的文件/目录，所以后面设计的各项插件，我都尽可能做全局安装+配置，只有部分配置文件保留在工程目录下。</p>
+<blockquote>
+<h4 id="commitizen引导式comment填写"><a href="#commitizen引导式comment填写" class="headerlink" title="commitizen引导式comment填写"></a>commitizen引导式comment填写</h4></blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/commitizen/cz-cli">commitizen</a> 是一个 cli 工具，用于规范化 git commit 信息。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># commitizen全局安装+全局配置（装机后单用户只需操作一次）</span><br>npm install -g commitizen  <span class="hljs-comment"># 安装规范化提交插件</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&#x27;&#123;&quot;path&quot;: &quot;cz-conventional-changelog&quot;&#125;&#x27;</span> &gt; ~/.czrc  <span class="hljs-comment"># 配置</span><br></code></pre></td></tr></table></figure>
+
+<p>安装完成后，以后使用 <code>git cz</code> 指令代替 <code>git commit</code> 做提交，即可开启引导式的comment填写！</p>
+<p><strong>特殊的fix类型提交</strong></p>
+<p>当选择的 <code>type</code> 是 <code>fix</code> 的时候，引导指令会询问是否有issues受本次提交的影响，如果有的话，可以填写fix相关issues的编号，这样就能够自动在github上回复或关闭该issue。</p>
+<p>此外，在 <code>short description</code> 中如果带上了issue编号的话，会自动被加上超链接，这个挺不错的，建议直接在 <code>short description</code> 的最后用一个小括号带上issue编号就好，例如 <code>this is a short description (#123)</code>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs bash">zuo@zmac comitizen-practice-demo % git cz<br>cz-cli@4.2.4, cz-conventional-changelog@3.2.0<br><br><span class="hljs-comment"># ? Select the type of change that you&#x27;re committing: fix:      A bug fix</span><br><span class="hljs-comment"># ? What is the scope of this change (e.g. component or file name): (press enter to skip) public</span><br><span class="hljs-comment"># ? Write a short, imperative tense description of the change (max 87 chars):</span><br><span class="hljs-comment">#  (28) auto close github issue test</span><br><span class="hljs-comment"># ? Provide a longer description of the change: (press enter to skip)</span><br> <br><span class="hljs-comment"># ? Are there any breaking changes? No</span><br><span class="hljs-comment"># ? Does this change affect any open issues? Yes</span><br><span class="hljs-comment"># ? If issues are closed, the commit requires a body. Please enter a longer description of the commit itself:</span><br><span class="hljs-comment">#  try to fix issue 2, just a msg</span><br><span class="hljs-comment"># ? Add issue references (e.g. &quot;fix #123&quot;, &quot;re #123&quot;.):</span><br><span class="hljs-comment">#  fix #2</span><br><span class="hljs-comment"># [main 146e7b9] fix(public): auto close github issue test</span><br><span class="hljs-comment">#  1 file changed, 1 insertion(+)</span><br><span class="hljs-comment"># zuo@zmac comitizen-practice-demo % </span><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<h4 id="husky-commitlint强制性规范校验"><a href="#husky-commitlint强制性规范校验" class="headerlink" title="husky+commitlint强制性规范校验"></a>husky+commitlint强制性规范校验</h4></blockquote>
+<p>和上面提到的Git Commit Template插件类似，commitizen终归是防君子不防小人，如果有人直接使用 <code>commit -m&#39;some comments&#39;</code> 命令提交commit，仍然能够提交不符合规范的commit comment。因此通过<a target="_blank" rel="noopener" href="https://github.com/conventional-changelog/commitlint">commitlint</a>来强制性的约束comment必须符合<a target="_blank" rel="noopener" href="https://www.conventionalcommits.org/en/v1.0.0/">conventional commits</a>规范（其实和validate-commit-msg做的事情是一样的，但这个配置少一点）。</p>
+<p>这里面commitlint只起到规范校验的作用，而git commit后执行commitlint规范校验的行为是通过<a target="_blank" rel="noopener" href="https://github.com/typicode/husky">husky</a>钩子来实现的，husky保证commitlint规范校验在git commit指令键入之后被执行。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># commitlint、husky全局安装（装机后单用户只需操作一次）</span><br>npm install -g @commitlint/cli @commitlint/config-conventional<br>npm install -g husky<br><br><span class="hljs-comment"># 以下操作每个工程创建后都需要执行一次</span><br><span class="hljs-comment"># Configure commitlint to use conventional config 因为目前commitlint不支持全局配置文件</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;module.exports = &#123;extends: [&#x27;@commitlint/config-conventional&#x27;]&#125;&quot;</span> &gt; commitlint.config.js<br><br><span class="hljs-comment"># 生成 husky git hooks</span><br>npx husky install<br><br><span class="hljs-comment"># 添加 git commit 钩子</span><br>npx husky add .husky/commit-msg <span class="hljs-string">&#x27;npx --no-install commitlint --edit &quot;$1&quot;&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<h4 id="standard-version生成changelog"><a href="#standard-version生成changelog" class="headerlink" title="standard-version生成changelog"></a>standard-version生成changelog</h4></blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/conventional-changelog/standard-version">standard-version</a>是一个用来控制版本发布的工具。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># standard-version全局安装（装机后单用户只需操作一次）</span><br>npm install -g standard-version<br></code></pre></td></tr></table></figure>
+
+<p>使用说明：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 查看帮助文档</span><br>npx standard-version --<span class="hljs-built_in">help</span><br><span class="hljs-comment"># 发布第一个版本</span><br>npx standard-version --first-release<br><br><span class="hljs-comment"># 0.4.1</span><br>npx standard-version <span class="hljs-comment"># 0.4.1 =&gt; 0.4.2</span><br>npx standard-version -- --prerelease <span class="hljs-comment"># 0.4.2 to 0.4.3-0</span><br>npx standard-version <span class="hljs-comment"># 0.4.3-0 to 0.4.3</span><br>npx standard-version -- --prerelease alpha <span class="hljs-comment"># 0.4.3 to 0.4.4-alpha.0</span><br><br><span class="hljs-comment"># patch、minor、major</span><br>npx standard-version --release-as minor  <span class="hljs-comment"># 0.4.4-alpha.0 to 0.5.0</span><br>npx standard-version --release-as patch <span class="hljs-comment"># 0.5.0 to 0.5.1</span><br>npx standard-version --release-as major <span class="hljs-comment"># 0.5.1 to 1.0.0</span><br>npx standard-version --release-as prepatch <span class="hljs-comment"># 1.0.0 to 1.0.1-0</span><br>npx standard-version --release-as preminor <span class="hljs-comment"># 1.0.1-0 to 1.1.0-0</span><br>npx standard-version --release-as premajor <span class="hljs-comment"># 1.1.0-0 to 2.0.0-0</span><br><br><span class="hljs-comment"># 手动指定版本</span><br>npx standard-version --release-as 2.1.3-alpha.1 <span class="hljs-comment"># 2.0.0-0 to 2.1.3-alpha.1</span><br><span class="hljs-comment"># ✔ bumping version in package.json from 2.0.0-0 to 2.1.3-alpha.1</span><br><span class="hljs-comment"># ✔ bumping version in package-lock.json from 2.0.0-0 to 2.1.3-alpha.1</span><br><span class="hljs-comment"># ✔ tagging release v2.1.3-alpha.1</span><br><br>npx standard-version <span class="hljs-comment"># 2.1.3-alpha.1 to 2.2.0</span><br></code></pre></td></tr></table></figure>
+
+<p>标签和版本号不会在 <code>git push</code> 的时候自动推送到github，需要单独手动推送。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git push --tags  <span class="hljs-comment"># 推送上面的标签和版本号到github</span><br></code></pre></td></tr></table></figure>
+
+<p>注意，不是每一次commit都应该生成一次tag，而是应该在有一个较为完整的改动/新增完成之后（可能涉及到众多的commit），才统一发布一个tag/release。在每次 <code>git cz</code> 之后，根据type以及一些其他因素的不同，<code>npx standard-version</code> 会自动调整版本发布的编号，比如一次fix一般版本号+0.0.1，默认一般+0.1.0，如果有重大feature则+1.0.0，大致是这么个规律，后面需要可以再深入研究一下。</p>
+<p>执行<code>npx standard-version</code> 之后会追加信息到changelog文档，并且自动单独做一次commit提交。</p>
+<h2 id="9-常用License"><a href="#9-常用License" class="headerlink" title="9 常用License"></a>9 常用License</h2><blockquote>
+<p>GPL</p>
+</blockquote>
+<p>GPL 是 GNU General Public License(GNU 通用公共许可证)的缩写形式。</p>
+<ol>
+<li>任何一套软件，只要其中使用了受 GPL 协议保护的第三方软件的源程序，并向非开发人员发布时，软件本身也就自动成为受 GPL 保护并且约束的实体。也就是说，此时它必须开放源代码。</li>
+<li>允许去掉所有原作的版权信息，只要你保持开源，并且随源代码、二进制版附上 GPL 的许可证就行，让后人可以很明确地得知此软件的授权信息。GPL 精髓就是，使软件在完整开源的情况下，尽可能让使用者得到自由发挥的空间，使软件得到更快更好的发展。</li>
+<li>无论软件以何种形式发布，都必须同时附上源代码。</li>
+<li>开发或维护遵循 GPL 协议开发的软件的公司或个人，可以对使用者收取一定的服务费用。但必须无偿提供软件的完整源代码，不得将源代码与服务做捆绑或任何变相捆绑销售。</li>
+</ol>
+<blockquote>
+<p>LGPL</p>
+</blockquote>
+<p>LGPL 是 GNU Lesser General Public License (GNU 宽通用公共许可证)的缩写形式。</p>
+<p><strong>GPL和LGPL对比</strong></p>
+<ul>
+<li>基于 GPL 的软件允许商业化销售，但不允许封闭源代码。如果您对遵循GPL的软件进行任何改动和/或再次开发并予以发布，则您的产品必须继承 GPL 协议，不允许封闭源代码。</li>
+<li>基于 LGPL 的软件也允许商业化销售，但不允许封闭源代码。如果您对遵循 LGPL 的软件进行任何改动和/或再次开发并予以发布，则您的产品必须继承LGPL协议，不允许封闭源代码。但是如果您的程序对遵循 LGPL 的软件进行任何连接、调用而不是包含，则允许封闭源代码。</li>
+</ul>
+<blockquote>
+<p>BSD</p>
+</blockquote>
+<p>BSD开源协议是一个给于使用者很大自由的协议。基本上使用者可以自由的使用，修改源代码，也可以将修改后的代码作为==开源或者专有软件==再发布。</p>
+<p>当使用了BSD协议的代码，或者以BSD协议代码为基础做二次开发自己的产品时，需要满足三个条件：</p>
+<ul>
+<li>如果再发布的产品中包含源代码，则在源代码中必须带有==原来代码==中的BSD协议；</li>
+<li>如果再发布的只是二进制类库/软件，则需要在类库/软件的文档和版权声明中包含原来代码中的BSD协议；</li>
+<li>不可以用开源代码的作者/机构名字和原来产品的名字做市场推广。</li>
+</ul>
+<p>因此，很多公司企业在选择开源软件的时候都首选BSD协议，因为可以完全控制这些第三方的代码，而且在必要的时候可以进行修改或者二次开发。</p>
+<blockquote>
+<p>MIT</p>
+</blockquote>
+<p>MIT是和BSD一样宽范的许可协议，作者只想保留版权,而无任何其他了限制。也就是说，你必须在你的发行版里包含原许可协议的声明，无论你是以二进制发布的还是以源代码发布的。</p>
+<blockquote>
+<p>Apache License</p>
+</blockquote>
+<p>Apache Licence是著名的非盈利开源组织Apache采用的协议。该协议和BSD类似，同样鼓励代码共享和尊重原作者的著作权，同样允许代码修改，再发布(作为开源或商业软件)。需要满足的条件也和BSD类似：</p>
+<p>需要给代码的用户一份Apache Licence；如果你修改了代码，需要在被修改的文件中说明；在延伸的代码中（修改和有源代码衍生的代码中）需要带有原来代码中的协议，商标，专利声明和其他原来作者规定需要包含的说明；如果再发布的产品中包含一个Notice文件，则在Notice文件中需要带有Apache Licence。你可以在Notice中增加自己的许可，但不可以表现为对Apache Licence构成更改。</p>
+<p><img src="/images/Git%E7%AC%94%E8%AE%B0.assets/image-20210825100118391.png" srcset="/img/loading.gif" lazyload alt="image-20210825100118391"></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/10/13/Spring%E6%B3%A8%E8%A7%A3%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0/">
+                        <span class="hidden-mobile">Spring注解驱动开发笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
