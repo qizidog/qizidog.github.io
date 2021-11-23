@@ -1,0 +1,566 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="世间之奇伟瑰怪非常之观，常在于险远">
+  <meta name="author" content="qizidog">
+  <meta name="keywords" content="">
+  <meta name="description" content="Latex笔记学习资源 LaTex安装教程（TeXLive2020） 刘海洋 · LaTeX 不快速的入门 - 跟着大神学习最纯正的 LaTeX 知识 2020 现代 LaTeX 讲座 - 曾祥东 - 最新鲜，最精准，最前沿 LaTeX 知识  安装配置不同平台上使用的latex发行版本有所差异，常见的发行版包括TexLive和MacTex。  TexLive 适用于Windows和Unix平台">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LatexNote">
+<meta property="og:url" content="https://qizidog.github.io/2021/11/23/LatexNote/index.html">
+<meta property="og:site_name" content="qizidog小窝">
+<meta property="og:description" content="Latex笔记学习资源 LaTex安装教程（TeXLive2020） 刘海洋 · LaTeX 不快速的入门 - 跟着大神学习最纯正的 LaTeX 知识 2020 现代 LaTeX 讲座 - 曾祥东 - 最新鲜，最精准，最前沿 LaTeX 知识  安装配置不同平台上使用的latex发行版本有所差异，常见的发行版包括TexLive和MacTex。  TexLive 适用于Windows和Unix平台">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-11-23T04:26:02.000Z">
+<meta property="article:modified_time" content="2021-11-23T04:26:02.162Z">
+<meta property="article:author" content="qizidog">
+<meta property="article:tag" content="latex">
+<meta name="twitter:card" content="summary_large_image">
+  
+  <title>LatexNote - qizidog小窝</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"qizidog.github.io","root":"/","version":"1.8.12","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>qizidog小窝</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/images/post.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="LatexNote">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-11-23 12:26" pubdate>
+        2021年11月23日 中午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      5.7k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      18 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">LatexNote</h1>
+            
+            <div class="markdown-body">
+              <h1 id="Latex笔记"><a href="#Latex笔记" class="headerlink" title="Latex笔记"></a>Latex笔记</h1><h2 id="学习资源"><a href="#学习资源" class="headerlink" title="学习资源"></a>学习资源</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1tg4y1B7f3">LaTex安装教程（TeXLive2020）</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1s7411U7Pr">刘海洋 · LaTeX 不快速的入门 - 跟着大神学习最纯正的 LaTeX 知识</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1RE411W7FS">2020 现代 LaTeX 讲座 - 曾祥东 - 最新鲜，最精准，最前沿 LaTeX 知识</a></li>
+</ul>
+<h2 id="安装配置"><a href="#安装配置" class="headerlink" title="安装配置"></a>安装配置</h2><p>不同平台上使用的latex发行版本有所差异，常见的发行版包括TexLive和MacTex。</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.tug.org/texlive/">TexLive</a> 适用于Windows和Unix平台</li>
+<li><a target="_blank" rel="noopener" href="https://www.tug.org/mactex/">MacTeX</a> 适用于MacOS平台</li>
+<li><a target="_blank" rel="noopener" href="https://cn.overleaf.com/">OverLeaf</a> 一个在线的LaTex编辑器</li>
+</ul>
+<p>我这里使用的是MacOS平台，故只能在MacTex下选择，而MacTex又有两个可以选择的版本。</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.tug.org/mactex/mactex-download.html">MacTex</a>，一个all-in-one的安装包，整个安装包大小超过4GB，涵盖了一系列的宏、语言配置、甚至一个简单的图形编辑界面。</li>
+<li><a target="_blank" rel="noopener" href="https://www.tug.org/mactex/morepackages.html">BasicTex</a>，一个精简浓缩的安装包，大小仅90M，需要自行配置latex编辑器，或者使用命令行操作。</li>
+</ul>
+<p>根据我个人的偏好，选择使用BasicTex，编辑器配合VSCode和LaTex Workshop使用，颜值和极客风俱备！</p>
+<p>由于国外下载网站实在太慢了，这里可以选择使用<a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/ctan/systems/mac/mactex/">清华源镜像</a>。也有人说可以通过brew来安装，但是教程有点老了，也可能是我用了中科大镜像的原因，brew里面搜不到basictex源，所以这里暂且按下不表。</p>
+<p>官网下载BasicTex安装包后一路确认安装即可，值得注意的是，安装完成后，不会生成任何的app启动图标（MacTex会生成四五个冗杂的app启动图标）。通过以下命令检查是否安装完成！</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">latex -v<br>xetex -v<br>tlmgr --<span class="hljs-built_in">help</span><br></code></pre></td></tr></table></figure>
+
+<p>如果没有报 <code>command not found</code> 的错误，则安装成功。</p>
+<p>有个值得梳理的点，由于BasicTex安装后“没有任何文件生成”，我们对BasicTex的安装位置、安装内容一无所知，这肯定是不行的！关于这一点，官网的 <a target="_blank" rel="noopener" href="http://www.tug.org/mactex/What_Is_Installed.pdf">What Is Installed</a> 有比较详细的介绍，我也在这上面花了不少心思，这里做个简单梳理。</p>
+<p>安装程序执行完成后，所有的可执行文件都被放到了 <code>/Library/TeX/texbin</code> 目录下，并且将 <code>/Library/TeX/texbin</code> 添加到了 <code>PATH</code> 环境变量中。我找遍了所有能想到的配置文件路径，包括 <code>~/.zshrc</code>, <code>~/.bashrc</code>, <code>~/.bash_profile</code>, <code>/etc/zshrc</code>, <code>/etc/zprofile</code>, <code>/etc/bashrc</code>，都没能找到 <code>/Library/TeX/texbin</code> 是怎么被添加到 <code>PATH</code> 环境变量中去的。</p>
+<p>最后还是在官方文档里面找到的答案，安装程序自动完成了两个配置，分别位于 <code>/etc/manpaths.d/TeX</code> 和 <code>/etc/paths.d/TeX</code>。BasicTex的环境变量就是通过 <code>/etc/paths.d/TeX</code> 来配置的。</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/EasonJim/p/9241436.html">Mac下的paths.d目录神奇用法</a></p>
+</blockquote>
+<p><code>paths.d</code> 的作用很简单，就是在里面创建一个文件，然后写上需要在全局命令行下用到的命令，直接配置一个目录即可。在 <code>/etc/profile</code> 下会有一个 <code>path_helper</code> 的工具，这个工具就是会读取 <code>/etc/paths.d</code> 目录下的文件中的路径，然后加载到环境变量 <code>$PTAH</code> 中去。</p>
+<blockquote>
+<p>关于手动安装宏包</p>
+</blockquote>
+<p>宏包的<a target="_blank" rel="noopener" href="https://www.ctan.org/pkg/texdoc">下载网址</a></p>
+<p>这里有几个介绍可以参考：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/20084274">怎么安装/更新宏包？</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/csucat/p/5142459.html">LaTeX手动安装宏包（package）以及生成帮助文档的整套流程</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/43981639">[LaTeX 指南] 功能性宏包推荐</a></li>
+</ul>
+<p>个人实践案例：</p>
+<p>安装完BasicTex之后发现果然自己“一贫如洗”，居然连个texdoc工具都没有，参考上面的文章自己安装了一下texdoc</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">tlmgr install texdoc<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>另一个选择 —— MiKTeX</strong></p>
+</blockquote>
+<p>对于mac平台来说，直接使用MacTex实在是太占用硬盘空间了，更重要的是，会安装一堆可能你一辈子都用不上的宏包（尤其是launch pad里那几个碍眼的软件），这是无法忍受的。但是使用BasicTex又会面临另外一个问题，那就是作为一个fresh bird，我根本不知道应该安装哪些宏包，一旦编译报错，甚至无法定位出错原因，另外，频繁安装宏包也是相当的浪费时间。</p>
+<p>对此，这里其实还有另外一个选择 —— <a target="_blank" rel="noopener" href="https://miktex.org/">MikTeX</a>。MikTeX最大的优势是可以根据实际需求，在缺少依赖的宏包时才进行相关宏包的安装。早期的MikTeX其实只支持windows和linux系统，近些年才推出了mac平台的版本。关于TexLive和MixTeX这两个发行版的差异可以参考下面的文章：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.texdev.net/2016/12/18/tex-on-windows-tex-live-versus-miktex-revisited/">TeX on Windows: TeX Live versus MiKTeX revisited</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/liuliang1999/p/12656706.html">在Windows上使用TeX：TeX Live与MiKTeX的对比（译）</a></li>
+</ul>
+<p>MikTeX默认安装目录：<code>/Users/dogqizi/Library/Application\ Support/MiKTeX/texmfs</code>，其下又包含config、data、install三个目录，而插件目录位于 <code>install/tex/latex</code>。</p>
+<h2 id="踩坑实录"><a href="#踩坑实录" class="headerlink" title="踩坑实录"></a>踩坑实录</h2><h3 id="macOS-latex-使用中文报错"><a href="#macOS-latex-使用中文报错" class="headerlink" title="macOS latex 使用中文报错"></a>macOS latex 使用中文报错</h3><blockquote>
+<p>我的latex文稿：</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs latex">\documentclass&#123;article&#125;<br>\usepackage&#123;ctex&#125;<br>\begin&#123;document&#125;<br> ``Hello world!&quot; from \LaTeX. <br> <br> 你好，latex<br>\end&#123;document&#125;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>报错信息</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-string">&quot;resource&quot;</span>: <span class="hljs-string">&quot;/fontset/ctex-fontset-macnew.def&quot;</span>,<br><br><span class="hljs-string">&quot;message&quot;</span>: <span class="hljs-string">&quot;Package fontspec: The font \&quot;Kaiti SC\n\&quot; cannot be found.\n&quot;</span>,<br><br><span class="hljs-string">&quot;message&quot;</span>: <span class="hljs-string">&quot;Font \&quot;Songti SC Light\&quot; does not contain requested\n(fontspec)\tScript \&quot;CJK\&quot;.\n&quot;</span>,<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>解决方法</p>
+</blockquote>
+<p><strong>局部文档解决</strong></p>
+<p>先设置文档字体为nofonts，再手动指定系统中存在的字体名。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs latex">\documentclass[a4paper,nofonts]&#123;article&#125;<br><br>\usepackage&#123;ctex&#125;<br><br>\setCJKmainfont[BoldFont=&#123;STSongti-SC-Bold&#125;,ItalicFont=&#123;STSongti-SC-Light&#125;]&#123;STSongti-SC-Regular&#125;<br><br>\begin&#123;document&#125;<br> ``Hello world!&quot; from \LaTeX. <br><br> 你好，latex<br>\end&#123;document&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>系统全局解决</strong></p>
+<p>将 <code>MiKTeX/texmfs/install/tex/latex/ctex/fontset/ctex-fontset-macnew.def</code> 中对应的字体名字修改为与自己系统中的名字一致！</p>
+<p>参考资料：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/20210754">如何在 Mac 下的 LaTeX 中使用中文字体?</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/maoye/article/details/102691774">Tex中使用fontspec宏包之各种坑</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44908818/article/details/108659018">macOS中LaTeX报错Package fontspec Error: The font “SimHei“ cannot be found</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/8f35c57901e3">Mac系统华文楷体在LaTeX中无法使用的解决</a></li>
+</ul>
+<h2 id="VSCode配置"><a href="#VSCode配置" class="headerlink" title="VSCode配置"></a>VSCode配置</h2><p>安装插件 <code>LaTex Workshop</code>。这个博客里面对于各项配置的作用讲得比较详细：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/166523064">Visual Studio Code (vscode)配置LaTeX</a></p>
+<p>Command+Shift+P 打开控制盘，输入 <code>set json</code> 搜索，选择 <code>Preference: Open Settings (JSON)</code>，追加以下配置到现有配置的最外层大括号内。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br></pre></td><td class="code"><pre><code class="hljs json">&#123;<br>    <span class="hljs-attr">&quot;latex-workshop.latex.tools&quot;</span>: [<br>        &#123;<br>            <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;xelatex&quot;</span>,<br>            <span class="hljs-comment">// 如果没有配置全局环境变量，command填具体的工具路径，比如/usr/local/tex/bin/xelatex</span><br>            <span class="hljs-attr">&quot;command&quot;</span>: <span class="hljs-string">&quot;xelatex&quot;</span>,<br>            <span class="hljs-attr">&quot;args&quot;</span>: [<br>                <span class="hljs-string">&quot;-synctex=1&quot;</span>,<br>                <span class="hljs-string">&quot;-interaction=nonstopmode&quot;</span>,<br>                <span class="hljs-string">&quot;-file-line-error&quot;</span>,<br>                <span class="hljs-string">&quot;%DOCFILE%&quot;</span><br>            ]<br>        &#125;,<br>        &#123;<br>            <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;pdflatex&quot;</span>,<br>            <span class="hljs-attr">&quot;command&quot;</span>: <span class="hljs-string">&quot;pdflatex&quot;</span>,<br>            <span class="hljs-attr">&quot;args&quot;</span>: [<br>                <span class="hljs-string">&quot;-synctex=1&quot;</span>,<br>                <span class="hljs-string">&quot;-interaction=nonstopmode&quot;</span>,<br>                <span class="hljs-string">&quot;-file-line-error&quot;</span>,<br>                <span class="hljs-string">&quot;%DOCFILE%&quot;</span><br>            ]<br>        &#125;,<br>        &#123;<br>            <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;latexmk&quot;</span>,<br>            <span class="hljs-attr">&quot;command&quot;</span>: <span class="hljs-string">&quot;latexmk&quot;</span>,<br>            <span class="hljs-attr">&quot;args&quot;</span>: [<br>                <span class="hljs-string">&quot;-synctex=1&quot;</span>,<br>                <span class="hljs-string">&quot;-interaction=nonstopmode&quot;</span>,<br>                <span class="hljs-string">&quot;-file-line-error&quot;</span>,<br>                <span class="hljs-string">&quot;-pdf&quot;</span>,<br>                <span class="hljs-string">&quot;-outdir=%OUTDIR%&quot;</span>,<br>                <span class="hljs-string">&quot;%DOCFILE%&quot;</span><br>            ]<br>        &#125;,<br>        &#123;<br>            <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;bibtex&quot;</span>,<br>            <span class="hljs-attr">&quot;command&quot;</span>: <span class="hljs-string">&quot;bibtex&quot;</span>,<br>            <span class="hljs-attr">&quot;args&quot;</span>: [<br>                <span class="hljs-string">&quot;%DOCFILE%&quot;</span><br>            ]<br>        &#125;<br>    ],<br>    <span class="hljs-attr">&quot;latex-workshop.latex.recipes&quot;</span>: [<br>        &#123;<br>            <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;XeLaTeX&quot;</span>,<br>            <span class="hljs-attr">&quot;tools&quot;</span>: [<br>                <span class="hljs-string">&quot;xelatex&quot;</span><br>            ]<br>        &#125;,<br>        &#123;<br>            <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;PDFLaTeX&quot;</span>,<br>            <span class="hljs-attr">&quot;tools&quot;</span>: [<br>                <span class="hljs-string">&quot;pdflatex&quot;</span><br>            ]<br>        &#125;,<br>        &#123;<br>            <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;BibTeX&quot;</span>,<br>            <span class="hljs-attr">&quot;tools&quot;</span>: [<br>                <span class="hljs-string">&quot;bibtex&quot;</span><br>            ]<br>        &#125;,<br>        &#123;<br>            <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;LaTeXmk&quot;</span>,<br>            <span class="hljs-attr">&quot;tools&quot;</span>: [<br>                <span class="hljs-string">&quot;latexmk&quot;</span><br>            ]<br>        &#125;,<br>        &#123;<br>            <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;xelatex -&gt; bibtex -&gt; xelatex*2&quot;</span>,<br>            <span class="hljs-attr">&quot;tools&quot;</span>: [<br>                <span class="hljs-string">&quot;xelatex&quot;</span>,<br>                <span class="hljs-string">&quot;bibtex&quot;</span>,<br>                <span class="hljs-string">&quot;xelatex&quot;</span>,<br>                <span class="hljs-string">&quot;xelatex&quot;</span><br>            ]<br>        &#125;,<br>        &#123;<br>            <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;pdflatex -&gt; bibtex -&gt; pdflatex*2&quot;</span>,<br>            <span class="hljs-attr">&quot;tools&quot;</span>: [<br>                <span class="hljs-string">&quot;pdflatex&quot;</span>,<br>                <span class="hljs-string">&quot;bibtex&quot;</span>,<br>                <span class="hljs-string">&quot;pdflatex&quot;</span>,<br>                <span class="hljs-string">&quot;pdflatex&quot;</span><br>            ]<br>        &#125;<br>    ],<br>    <span class="hljs-attr">&quot;latex-workshop.latex.clean.fileTypes&quot;</span>: [<br>        <span class="hljs-string">&quot;*.aux&quot;</span>,<br>        <span class="hljs-string">&quot;*.bbl&quot;</span>,<br>        <span class="hljs-string">&quot;*.blg&quot;</span>,<br>        <span class="hljs-string">&quot;*.idx&quot;</span>,<br>        <span class="hljs-string">&quot;*.ind&quot;</span>,<br>        <span class="hljs-string">&quot;*.lof&quot;</span>,<br>        <span class="hljs-string">&quot;*.lot&quot;</span>,<br>        <span class="hljs-string">&quot;*.out&quot;</span>,<br>        <span class="hljs-string">&quot;*.toc&quot;</span>,<br>        <span class="hljs-string">&quot;*.acn&quot;</span>,<br>        <span class="hljs-string">&quot;*.acr&quot;</span>,<br>        <span class="hljs-string">&quot;*.alg&quot;</span>,<br>        <span class="hljs-string">&quot;*.glg&quot;</span>,<br>        <span class="hljs-string">&quot;*.glo&quot;</span>,<br>        <span class="hljs-string">&quot;*.gls&quot;</span>,<br>        <span class="hljs-string">&quot;*.ist&quot;</span>,<br>        <span class="hljs-string">&quot;*.fls&quot;</span>,<br>        <span class="hljs-string">&quot;*.log&quot;</span>,<br>        <span class="hljs-string">&quot;*.fdb_latexmk&quot;</span><br>    ],<br>    <span class="hljs-attr">&quot;latex-workshop.view.pdf.viewer&quot;</span>: <span class="hljs-string">&quot;tab&quot;</span>,<br>    <span class="hljs-attr">&quot;latex-workshop.latex.autoBuild.run&quot;</span>: <span class="hljs-string">&quot;never&quot;</span>,<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>快捷键：</p>
+<ul>
+<li>option+command+B  生成PDF文档</li>
+<li>option+command+V  预览PDF文档</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/tools/">tools</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/latex/">latex</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/10/20/Git%E7%AC%94%E8%AE%B0/">
+                        <span class="hidden-mobile">Git笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

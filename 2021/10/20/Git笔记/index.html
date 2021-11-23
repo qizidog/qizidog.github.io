@@ -39,7 +39,7 @@
 <meta property="og:image" content="https://qizidog.github.io/images/Git%E7%AC%94%E8%AE%B0.assets/image-20211018190648255.png">
 <meta property="og:image" content="https://qizidog.github.io/images/Git%E7%AC%94%E8%AE%B0.assets/image-20210825100118391.png">
 <meta property="article:published_time" content="2021-10-20T03:27:05.000Z">
-<meta property="article:modified_time" content="2021-10-20T11:29:49.824Z">
+<meta property="article:modified_time" content="2021-10-20T11:49:24.429Z">
 <meta property="article:author" content="qizidog">
 <meta property="article:tag" content="project">
 <meta name="twitter:card" content="summary_large_image">
@@ -221,7 +221,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      61 分钟
+      63 分钟
     </span>
   
 
@@ -668,8 +668,21 @@
 </blockquote>
 <p>和上面提到的Git Commit Template插件类似，commitizen终归是防君子不防小人，如果有人直接使用 <code>commit -m&#39;some comments&#39;</code> 命令提交commit，仍然能够提交不符合规范的commit comment。因此通过<a target="_blank" rel="noopener" href="https://github.com/conventional-changelog/commitlint">commitlint</a>来强制性的约束comment必须符合<a target="_blank" rel="noopener" href="https://www.conventionalcommits.org/en/v1.0.0/">conventional commits</a>规范（其实和validate-commit-msg做的事情是一样的，但这个配置少一点）。</p>
 <p>这里面commitlint只起到规范校验的作用，而git commit后执行commitlint规范校验的行为是通过<a target="_blank" rel="noopener" href="https://github.com/typicode/husky">husky</a>钩子来实现的，husky保证commitlint规范校验在git commit指令键入之后被执行。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># commitlint、husky全局安装（装机后单用户只需操作一次）</span><br>npm install -g @commitlint/cli @commitlint/config-conventional<br>npm install -g husky<br><br><span class="hljs-comment"># 以下操作每个工程创建后都需要执行一次</span><br><span class="hljs-comment"># Configure commitlint to use conventional config 因为目前commitlint不支持全局配置文件</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;module.exports = &#123;extends: [&#x27;@commitlint/config-conventional&#x27;]&#125;&quot;</span> &gt; commitlint.config.js<br><br><span class="hljs-comment"># 生成 husky git hooks</span><br>npx husky install<br><br><span class="hljs-comment"># 添加 git commit 钩子</span><br>npx husky add .husky/commit-msg <span class="hljs-string">&#x27;npx --no-install commitlint --edit &quot;$1&quot;&#x27;</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># commitlint、husky全局安装（装机后单用户只需操作一次）</span><br>npm install -g @commitlint/cli @commitlint/config-conventional<br>npm install -g husky<br><br><span class="hljs-comment"># commitlint全局配置（装机后单用户只需操作一次）</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;module.exports = &#123;extends: [&#x27;@commitlint/config-conventional&#x27;]&#125;&quot;</span> &gt; ~/.commitlintrc.js<br><br><span class="hljs-comment"># 以下操作每个工程创建后都需要执行一次</span><br><span class="hljs-comment"># Configure commitlint to use conventional config 舍弃该配置，用全局配置</span><br><span class="hljs-comment"># echo &quot;module.exports = &#123;extends: [&#x27;@commitlint/config-conventional&#x27;]&#125;&quot; &gt; commitlint.config.js</span><br><br><span class="hljs-comment"># 生成 husky git hooks</span><br>npx husky install<br><br><span class="hljs-comment"># 添加 git commit 钩子</span><br>npx husky add .husky/commit-msg <span class="hljs-string">&#x27;npx --no-install commitlint --edit &quot;$1&quot;&#x27;</span><br></code></pre></td></tr></table></figure>
 
+<p>有一个小问题，使用commitlint之后，如果再通过IDEA的commit窗口提交代码，会报错。。说找不到commitlint。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">Commit failed with error<br>0 file committed, 1 file failed to commit: feat: 测试<br>not found: commitlint<br>husky - commit-msg hook exited with code 127 (error)<br></code></pre></td></tr></table></figure>
+
+<p>检查了一下，和commitlint是否使用全局配置没有关系，暂时没有比较好的解决方式，有两种妥协的处理方法：</p>
+<ol>
+<li>以后都不使用IDEA的commit窗口提交代码，全在命令行提交；</li>
+<li>IDEA的工程就不做husky钩子配置了，也就是说，什么配置都不用做，但是必须使用以下两种方式提交代码：<ul>
+<li>用Git Commit Template插件来生成comment然后再通过commit窗口提交；</li>
+<li>使用commitizen从命令行提交。</li>
+</ul>
+</li>
+</ol>
+<p>当然还是推荐第二种方法啦，连配置都不用做了，自己约束好自己问题不大。</p>
 <blockquote>
 <p>standard-version生成changelog</p>
 </blockquote>
@@ -757,6 +770,12 @@
                 <div class="post-prevnext">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2021/11/23/LatexNote/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">LatexNote</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
