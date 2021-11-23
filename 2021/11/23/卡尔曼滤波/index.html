@@ -1,0 +1,574 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="卡尔曼滤波器学习笔记，主要是视频课程截图整理，附带一个自己改写的python demo.">
+  <meta name="author" content="qizidog">
+  <meta name="keywords" content="">
+  <meta name="description" content="卡尔曼滤波器学习笔记，主要是视频课程截图整理，附带一个自己改写的python demo.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="卡尔曼滤波">
+<meta property="og:url" content="https://qizidog.github.io/2021/11/23/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2/index.html">
+<meta property="og:site_name" content="qizidog小窝">
+<meta property="og:description" content="卡尔曼滤波器学习笔记，主要是视频课程截图整理，附带一个自己改写的python demo.">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://qizidog.github.io/images/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2.assets/image-20211121212609532.png">
+<meta property="og:image" content="https://qizidog.github.io/images/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2.assets/image-20211121212701116.png">
+<meta property="og:image" content="https://qizidog.github.io/images/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2.assets/image-20211120202524044.png">
+<meta property="og:image" content="https://qizidog.github.io/images/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2.assets/image-20211120202442837.png">
+<meta property="og:image" content="https://qizidog.github.io/images/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2.assets/image-20211120202905489.png">
+<meta property="og:image" content="https://qizidog.github.io/images/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2.assets/image-20211120203118039.png">
+<meta property="og:image" content="https://qizidog.github.io/images/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2.assets/image-20211120203239474.png">
+<meta property="og:image" content="https://qizidog.github.io/images/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2.assets/image-20211120203653141.png">
+<meta property="og:image" content="https://qizidog.github.io/images/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2.assets/image-20211120204347570.png">
+<meta property="og:image" content="https://qizidog.github.io/images/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2.assets/image-20211120211344073.png">
+<meta property="og:image" content="https://qizidog.github.io/images/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2.assets/image-20211120205516430.png">
+<meta property="og:image" content="https://qizidog.github.io/images/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2.assets/image-20211120213548403.png">
+<meta property="og:image" content="https://qizidog.github.io/images/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2.assets/image-20211120213916548.png">
+<meta property="og:image" content="https://qizidog.github.io/images/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2.assets/image-20211121161436600.png">
+<meta property="og:image" content="https://qizidog.github.io/images/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2.assets/image-20211121161852537.png">
+<meta property="og:image" content="https://qizidog.github.io/images/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2.assets/image-20211121164223698.png">
+<meta property="og:image" content="https://qizidog.github.io/images/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2.assets/image-20211121171509996.png">
+<meta property="og:image" content="https://qizidog.github.io/images/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2.assets/image-20211121171917274.png">
+<meta property="og:image" content="https://qizidog.github.io/images/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2.assets/image-20211121172209639.png">
+<meta property="og:image" content="https://qizidog.github.io/images/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2.assets/image-20211120225536532.png">
+<meta property="og:image" content="https://qizidog.github.io/images/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2.assets/image-20211120231344535.png">
+<meta property="og:image" content="https://qizidog.github.io/images/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2.assets/image-20211120232119734.png">
+<meta property="og:image" content="https://qizidog.github.io/images/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2.assets/image-20211120232744596.png">
+<meta property="og:image" content="https://qizidog.github.io/images/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2.assets/image-20211122114739985.png">
+<meta property="og:image" content="https://qizidog.github.io/images/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2.assets/image-20211122115631993.png">
+<meta property="og:image" content="https://qizidog.github.io/images/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2.assets/image-20211122120251925.png">
+<meta property="og:image" content="https://qizidog.github.io/images/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2.assets/image-20211122120555423.png">
+<meta property="article:published_time" content="2021-11-23T06:54:42.000Z">
+<meta property="article:modified_time" content="2021-11-23T06:54:42.576Z">
+<meta property="article:author" content="qizidog">
+<meta property="article:tag" content="kalman filter">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://qizidog.github.io/images/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2.assets/image-20211121212609532.png">
+  
+  <title>卡尔曼滤波 - qizidog小窝</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"qizidog.github.io","root":"/","version":"1.8.12","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>qizidog小窝</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/images/post.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="卡尔曼滤波">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-11-23 14:54" pubdate>
+        2021年11月23日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      5.3k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      17 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">卡尔曼滤波</h1>
+            
+            <div class="markdown-body">
+              <h1 id="卡尔曼滤波-Kalman-Filter"><a href="#卡尔曼滤波-Kalman-Filter" class="headerlink" title="卡尔曼滤波 Kalman Filter"></a>卡尔曼滤波 Kalman Filter</h1><p>视频教程地址：<a target="_blank" rel="noopener" href="https://space.bilibili.com/230105574/channel/detail?cid=139198&amp;ctype=0">https://space.bilibili.com/230105574/channel/detail?cid=139198&amp;ctype=0</a></p>
+<p>卡尔曼滤波五个公式各参数意义：<a target="_blank" rel="noopener" href="https://blog.csdn.net/wccsu1994/article/details/84643221">https://blog.csdn.net/wccsu1994/article/details/84643221</a></p>
+<p><img src="/images/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2.assets/image-20211121212609532.png" srcset="/img/loading.gif" lazyload alt="image-20211121212609532"></p>
+<p><img src="/images/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2.assets/image-20211121212701116.png" srcset="/img/loading.gif" lazyload alt="image-20211121212701116"></p>
+<h2 id="第一讲-递归算法"><a href="#第一讲-递归算法" class="headerlink" title="第一讲 递归算法"></a>第一讲 递归算法</h2><p>最初的引入</p>
+<p><img src="/images/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2.assets/image-20211120202524044.png" srcset="/img/loading.gif" lazyload alt="image-20211120202524044"></p>
+<p>卡尔曼增益系数分析</p>
+<p><img src="/images/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2.assets/image-20211120202442837.png" srcset="/img/loading.gif" lazyload alt="image-20211120202442837"></p>
+<p>卡尔曼滤波基本步骤、小案例</p>
+<p><img src="/images/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2.assets/image-20211120202905489.png" srcset="/img/loading.gif" lazyload alt="image-20211120202905489"></p>
+<p>案例手算演示</p>
+<p><img src="/images/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2.assets/image-20211120203118039.png" srcset="/img/loading.gif" lazyload alt="image-20211120203118039"></p>
+<p>案例excel演算结果</p>
+<p><img src="/images/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2.assets/image-20211120203239474.png" srcset="/img/loading.gif" lazyload alt="image-20211120203239474"></p>
+<h2 id="第二讲-数学基础"><a href="#第二讲-数学基础" class="headerlink" title="第二讲 数学基础"></a>第二讲 数学基础</h2><blockquote>
+<p><strong>数据融合、协方差矩阵、状态空间方程</strong></p>
+</blockquote>
+<p><strong>数据融合</strong></p>
+<p>数据融合的原理：使得融合后数据的误差方差最小</p>
+<p><img src="/images/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2.assets/image-20211120203653141.png" srcset="/img/loading.gif" lazyload alt="image-20211120203653141"></p>
+<p>融合数据方差推算</p>
+<p><img src="/images/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2.assets/image-20211120204347570.png" srcset="/img/loading.gif" lazyload alt="image-20211120204347570"></p>
+<p><strong>协方差矩阵</strong></p>
+<p>协方差矩阵概念、矩阵计算方式</p>
+<p><img src="/images/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2.assets/image-20211120211344073.png" srcset="/img/loading.gif" lazyload alt="image-20211120211344073"></p>
+<p>excel演示协方差矩阵</p>
+<p><img src="/images/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2.assets/image-20211120205516430.png" srcset="/img/loading.gif" lazyload alt="image-20211120205516430"></p>
+<p><strong>状态空间方程</strong></p>
+<p>弹簧振动系统案例</p>
+<p><img src="/images/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2.assets/image-20211120213548403.png" srcset="/img/loading.gif" lazyload alt="image-20211120213548403"></p>
+<p>连续变量和离散型变量的矩阵形式表达</p>
+<p><img src="/images/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2.assets/image-20211120213916548.png" srcset="/img/loading.gif" lazyload alt="image-20211120213916548"></p>
+<h2 id="第三讲-卡尔曼增益数学推导"><a href="#第三讲-卡尔曼增益数学推导" class="headerlink" title="第三讲 卡尔曼增益数学推导"></a>第三讲 卡尔曼增益数学推导</h2><p>画红框的是书上给出的卡尔曼滤波器公式</p>
+<p><img src="/images/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2.assets/image-20211121161436600.png" srcset="/img/loading.gif" lazyload alt="image-20211121161436600"></p>
+<p>目标：寻找合适的k_k，使得P的迹最小</p>
+<p><img src="/images/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2.assets/image-20211121161852537.png" srcset="/img/loading.gif" lazyload alt="image-20211121161852537"></p>
+<p>推出符合目标的卡尔曼增益k_k</p>
+<p><img src="/images/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2.assets/image-20211121164223698.png" srcset="/img/loading.gif" lazyload alt="image-20211121164223698"></p>
+<h2 id="第四讲-误差协方差矩阵数学推导"><a href="#第四讲-误差协方差矩阵数学推导" class="headerlink" title="第四讲 误差协方差矩阵数学推导"></a>第四讲 误差协方差矩阵数学推导</h2><p>梳理</p>
+<p><img src="/images/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2.assets/image-20211121171509996.png" srcset="/img/loading.gif" lazyload alt="image-20211121171509996"></p>
+<p>P_k先验推导</p>
+<p><img src="/images/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2.assets/image-20211121171917274.png" srcset="/img/loading.gif" lazyload alt="image-20211121171917274"></p>
+<p>P_k后验更新、完整公式整理</p>
+<p><img src="/images/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2.assets/image-20211121172209639.png" srcset="/img/loading.gif" lazyload alt="image-20211121172209639"></p>
+<h2 id="第五讲-二维实例演算"><a href="#第五讲-二维实例演算" class="headerlink" title="第五讲 二维实例演算"></a>第五讲 二维实例演算</h2><p>excel程序下载链接：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1GdJe2eWIlaQrk2nrjemRCQ">https://pan.baidu.com/s/1GdJe2eWIlaQrk2nrjemRCQ</a> 提取码：txn3 （已放进asset文件夹）  $6.5 + (0.2<strong>2 / (0.2</strong>2 + 0.4**2)) * (7.3 - 6.5) = 6.66$ </p>
+<p><img src="/images/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2.assets/image-20211120225536532.png" srcset="/img/loading.gif" lazyload alt="image-20211120225536532"></p>
+<p>一个简单而又不简单的例子（一个人在走路，同时通过天上卫星可观测其位置和速度）</p>
+<p><img src="/images/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2.assets/image-20211120231344535.png" srcset="/img/loading.gif" lazyload alt="image-20211120231344535"></p>
+<p>基础公式</p>
+<p><img src="/images/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2.assets/image-20211120232119734.png" srcset="/img/loading.gif" lazyload alt="image-20211120232119734"></p>
+<p>excel演示</p>
+<p><img src="/images/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2.assets/image-20211120232744596.png" srcset="/img/loading.gif" lazyload alt="image-20211120232744596"></p>
+<p>个人任务：python实现一下</p>
+<p>别人写的：<a target="_blank" rel="noopener" href="https://github.com/liuchangji/2D-Kalman-Filter-Example_Dr_CAN_in_python">https://github.com/liuchangji/2D-Kalman-Filter-Example_Dr_CAN_in_python</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#! python3</span><br><span class="hljs-comment"># -- encoding: utf-8 --</span><br><span class="hljs-comment"># @Author: qizidog</span><br><span class="hljs-comment"># @Time:   2021/11/21 22:10:07</span><br><br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">from</span> matplotlib <span class="hljs-keyword">import</span> pyplot <span class="hljs-keyword">as</span> plt<br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">disturb</span>(<span class="hljs-params">scale</span>):</span><br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    返回一个指定标准差的正太扰动</span><br><span class="hljs-string">    :param scale: 标准差</span><br><span class="hljs-string">    :return:</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-keyword">return</span> np.random.normal(<span class="hljs-number">0</span>, scale)<br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">calc_prior_hx</span>(<span class="hljs-params">A, hx_k_1, B, u_k_1</span>):</span><br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    计算先验估计值</span><br><span class="hljs-string">    :param A: 预测使用的状态转移矩阵</span><br><span class="hljs-string">    :param hx_k_1: 上一次的后验估计值</span><br><span class="hljs-string">    :param B: 将输入转为状态的转移矩阵</span><br><span class="hljs-string">    :param u_k_1: 系统输入</span><br><span class="hljs-string">    :return: 先验估计值</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    hx_prior_k = np.dot(A, hx_k_1)<br>    <span class="hljs-keyword">if</span> B <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">and</span> u_k_1 <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:<br>        hx_prior_k += np.dot(B, u_k_1)<br>    <span class="hljs-keyword">return</span> hx_prior_k<br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">calc_prior_P</span>(<span class="hljs-params">A, P_k_1, Q</span>):</span><br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    计算先验状态估计协方差矩阵</span><br><span class="hljs-string">    :param A: 预测使用的状态转移矩阵</span><br><span class="hljs-string">    :param P_k_1: 上一次的后验状态估计协方差矩阵</span><br><span class="hljs-string">    :param Q: 预测过程的噪声协方差矩阵</span><br><span class="hljs-string">    :return: 先验的状态估计协方差矩阵</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    P_prior_k = np.dot(A, P_k_1)<br>    P_prior_k = np.dot(P_prior_k, A.T) + Q<br>    <span class="hljs-keyword">return</span> P_prior_k<br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">kalman_gain</span>(<span class="hljs-params">P_prior_k, H, R</span>):</span><br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    计算kalman gain卡尔曼增益</span><br><span class="hljs-string">    :param P_prior_k: 先验的状态估计协方差矩阵</span><br><span class="hljs-string">    :param H: 状态变量到测量值的转换矩阵</span><br><span class="hljs-string">    :param R: 测量噪声协方差矩阵</span><br><span class="hljs-string">    :return: 卡尔曼增益系数矩阵</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    up = np.dot(P_prior_k, H.T)<br>    down = np.dot(H, P_prior_k)<br>    down = np.dot(down, H.T) + R<br>    K_k = np.dot(up, np.linalg.inv(down))  <span class="hljs-comment"># 矩阵除法等于乘以逆矩阵</span><br>    <span class="hljs-keyword">return</span> K_k<br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">calc_posterior_hx</span>(<span class="hljs-params">hx_prior_k, K_k, z_k, H</span>):</span><br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    计算后验估计值</span><br><span class="hljs-string">    :param hx_prior_k: 先验估计值</span><br><span class="hljs-string">    :param K_k: 卡尔曼增益系数矩阵</span><br><span class="hljs-string">    :param z_k: 测量值</span><br><span class="hljs-string">    :param H: 状态变量到测量值的转换矩阵</span><br><span class="hljs-string">    :return: 后验估计值</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    hx_k = hx_prior_k + np.dot(K_k, (z_k - np.dot(H, hx_prior_k)))<br>    <span class="hljs-keyword">return</span> hx_k<br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">update_posterior_P</span>(<span class="hljs-params">K_k, H, P_prior_k</span>):</span><br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    更新后验状态估计协方差矩阵</span><br><span class="hljs-string">    :param K_k: 卡尔曼增益</span><br><span class="hljs-string">    :param H: 状态变量到测量值的转换矩阵</span><br><span class="hljs-string">    :param P_prior_k: 先验的状态估计协方差矩阵</span><br><span class="hljs-string">    :return: 后验状态估计协方差矩阵</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    P_k = P_prior_k - np.dot(np.dot(K_k, H), P_prior_k)<br>    <span class="hljs-keyword">return</span> P_k<br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    kalman filter 案例实践</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-comment"># -----初始化用于画图的数据列表-----</span><br>    position_true = []<br>    position_measure = []<br>    position_prior_est = []<br>    position_posterior_est = []<br><br>    speed_true = []<br>    speed_measure = []<br>    speed_prior_est = []<br>    speed_posterior_est = []<br><br>    <span class="hljs-comment"># -----一些初始值-----</span><br>    <span class="hljs-comment"># A 用于计算预测值的状态转移矩阵</span><br>    A = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>]).reshape([<span class="hljs-number">2</span>, <span class="hljs-number">2</span>])<br>    B, u_k_1 = <span class="hljs-literal">None</span>, <span class="hljs-literal">None</span><br>    <span class="hljs-comment"># 初始的位置和速度估计值</span><br>    hx_k_1 = np.array([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>]).reshape([<span class="hljs-number">2</span>, <span class="hljs-number">1</span>])<br>    <span class="hljs-comment"># 状态估计协方差矩阵P初始化</span><br>    P_k_1 = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>]).reshape([<span class="hljs-number">2</span>, <span class="hljs-number">2</span>])<br>    <span class="hljs-comment"># 过程噪声协方差矩阵Q，p(w)~N(0,Q)，噪声来自预测的不确定性</span><br>    Q = np.array([<span class="hljs-number">5</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">5</span>]).reshape((<span class="hljs-number">2</span>, <span class="hljs-number">2</span>))  <span class="hljs-comment"># 个人认为预测的误差较大</span><br>    <span class="hljs-comment"># 状态观测矩阵</span><br>    H = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>]).reshape([<span class="hljs-number">2</span>, <span class="hljs-number">2</span>])<br>    <span class="hljs-comment"># 测量噪声协方差矩阵R，p(v)~N(0,R)</span><br>    R = np.array([[<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>]]).reshape([<span class="hljs-number">2</span>, <span class="hljs-number">2</span>])  <span class="hljs-comment"># 个人认为测量的误差比较小</span><br><br>    <span class="hljs-comment"># 初始位置、速度的真值（随便取的 x=3, v=3）</span><br>    x_k = np.array([<span class="hljs-number">3</span>, <span class="hljs-number">3</span>]).reshape([<span class="hljs-number">2</span>, <span class="hljs-number">1</span>]) + np.array([disturb(Q[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>]), disturb(Q[<span class="hljs-number">1</span>][<span class="hljs-number">1</span>])])  <span class="hljs-comment"># 加点扰动</span><br><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">30</span>):<br>        <span class="hljs-comment"># -----------------------生成真实值----------------------</span><br>        <span class="hljs-keyword">if</span> i != <span class="hljs-number">0</span>:  <span class="hljs-comment"># 第一次时，使用上面指定的初始真值</span><br>            x_k = np.dot(A, x_k) + np.array([disturb(Q[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>]), disturb(Q[<span class="hljs-number">1</span>][<span class="hljs-number">1</span>])])  <span class="hljs-comment"># 上次的真值计算后加点扰动当作真值</span><br>        position_true.append(x_k[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>])<br>        speed_true.append(x_k[<span class="hljs-number">1</span>][<span class="hljs-number">0</span>])<br>        <span class="hljs-comment"># -----------------------生成观测值----------------------</span><br>        z_k = x_k + np.array([disturb(R[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>]), disturb(R[<span class="hljs-number">1</span>][<span class="hljs-number">1</span>])])  <span class="hljs-comment"># 真值叠加扰动当作观测值</span><br>        position_measure.append(z_k[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>])<br>        speed_measure.append(z_k[<span class="hljs-number">1</span>][<span class="hljs-number">0</span>])<br>        <span class="hljs-comment"># ---------------------kalman filter--------------------</span><br>        hx_prior_k = calc_prior_hx(A, hx_k_1, B, u_k_1)<br>        P_prior_k = calc_prior_P(A, P_k_1, Q)<br>        K_k = kalman_gain(P_prior_k, H, R)<br>        hx_k = calc_posterior_hx(hx_prior_k, K_k, z_k, H)  <span class="hljs-comment"># 估计值</span><br>        P_k = update_posterior_P(K_k, H, P_prior_k)<br>        position_prior_est.append(hx_prior_k[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>])<br>        speed_prior_est.append(hx_prior_k[<span class="hljs-number">1</span>][<span class="hljs-number">0</span>])<br>        position_posterior_est.append(hx_k[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>])<br>        speed_posterior_est.append(hx_k[<span class="hljs-number">1</span>][<span class="hljs-number">0</span>])<br>        <span class="hljs-comment"># ----------------------更新值，下次用---------------------</span><br>        hx_k_1 = hx_k<br>        P_k_1 = P_k<br><br>    <span class="hljs-comment"># 可视化显示</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-literal">True</span>:<br>        fig, axs = plt.subplots(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>)<br>        axs[<span class="hljs-number">0</span>].plot(speed_true, <span class="hljs-string">&quot;-&quot;</span>, label=<span class="hljs-string">&quot;speed_true&quot;</span>, linewidth=<span class="hljs-number">1</span>)<br>        axs[<span class="hljs-number">0</span>].plot(speed_measure, <span class="hljs-string">&quot;-&quot;</span>, label=<span class="hljs-string">&quot;speed_measure&quot;</span>, linewidth=<span class="hljs-number">1</span>)<br>        axs[<span class="hljs-number">0</span>].plot(speed_prior_est, <span class="hljs-string">&quot;-&quot;</span>, label=<span class="hljs-string">&quot;speed_prior_est&quot;</span>, linewidth=<span class="hljs-number">1</span>)<br>        axs[<span class="hljs-number">0</span>].plot(speed_posterior_est, <span class="hljs-string">&quot;-&quot;</span>, label=<span class="hljs-string">&quot;speed_posterior_est&quot;</span>, linewidth=<span class="hljs-number">1</span>)<br>        axs[<span class="hljs-number">0</span>].set_title(<span class="hljs-string">&quot;speed&quot;</span>)<br>        axs[<span class="hljs-number">0</span>].set_xlabel(<span class="hljs-string">&#x27;k&#x27;</span>)  <span class="hljs-comment"># Add an x-label to the axes.</span><br>        axs[<span class="hljs-number">0</span>].legend()  <span class="hljs-comment"># Add a legend.</span><br><br>        axs[<span class="hljs-number">1</span>].plot(position_true, <span class="hljs-string">&quot;-&quot;</span>, label=<span class="hljs-string">&quot;position_true&quot;</span>, linewidth=<span class="hljs-number">1</span>)<br>        axs[<span class="hljs-number">1</span>].plot(position_measure, <span class="hljs-string">&quot;-&quot;</span>, label=<span class="hljs-string">&quot;position_measure&quot;</span>, linewidth=<span class="hljs-number">1</span>)<br>        axs[<span class="hljs-number">1</span>].plot(position_prior_est, <span class="hljs-string">&quot;-&quot;</span>, label=<span class="hljs-string">&quot;position_prior_est&quot;</span>, linewidth=<span class="hljs-number">1</span>)<br>        axs[<span class="hljs-number">1</span>].plot(position_posterior_est, <span class="hljs-string">&quot;-&quot;</span>, label=<span class="hljs-string">&quot;position_posterior_est&quot;</span>, linewidth=<span class="hljs-number">1</span>)<br>        axs[<span class="hljs-number">1</span>].set_title(<span class="hljs-string">&quot;position&quot;</span>)<br>        axs[<span class="hljs-number">1</span>].set_xlabel(<span class="hljs-string">&#x27;k&#x27;</span>)  <span class="hljs-comment"># Add an x-label to the axes.</span><br>        axs[<span class="hljs-number">1</span>].legend()  <span class="hljs-comment"># Add a legend.</span><br><br>        plt.show()<br><br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="第六讲-拓展卡尔曼滤波器"><a href="#第六讲-拓展卡尔曼滤波器" class="headerlink" title="第六讲 拓展卡尔曼滤波器"></a>第六讲 拓展卡尔曼滤波器</h2><p>kalman filter 只能用于线性系统</p>
+<p><img src="/images/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2.assets/image-20211122114739985.png" srcset="/img/loading.gif" lazyload alt="image-20211122114739985"></p>
+<p>正态分布的误差在非线性系统中就不再是正态分布了，需要做线性化泰勒展开</p>
+<p><img src="/images/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2.assets/image-20211122115631993.png" srcset="/img/loading.gif" lazyload alt="image-20211122115631993"></p>
+<p><img src="/images/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2.assets/image-20211122120251925.png" srcset="/img/loading.gif" lazyload alt="image-20211122120251925"></p>
+<p>修改为 extended kalman filter</p>
+<p><img src="/images/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2.assets/image-20211122120555423.png" srcset="/img/loading.gif" lazyload alt="image-20211122120555423"></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/algorithm/">algorithm</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/kalman-filter/">kalman filter</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/11/23/%E5%9D%9A%E6%9E%9C%E4%BA%91%E9%80%89%E6%8B%A9%E6%80%A7%E5%90%8C%E6%AD%A5%E9%87%8D%E6%8B%BE/">
+                        <span class="hidden-mobile">坚果云选择性同步重拾</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
