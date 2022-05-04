@@ -1,0 +1,885 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="qizidog">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="linux中最实用、但又最让人望而生畏的三个文本处理工具：grep、sed、awk，另外还有find、ack等相关工具也一并整理收纳其中。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="正则三剑客">
+<meta property="og:url" content="https://qizidog.github.io/2022/05/05/%E6%AD%A3%E5%88%99%E4%B8%89%E5%89%91%E5%AE%A2/index.html">
+<meta property="og:site_name" content="qizidog小窝">
+<meta property="og:description" content="linux中最实用、但又最让人望而生畏的三个文本处理工具：grep、sed、awk，另外还有find、ack等相关工具也一并整理收纳其中。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-05-04T16:12:22.000Z">
+<meta property="article:modified_time" content="2022-05-04T16:12:22.786Z">
+<meta property="article:author" content="qizidog">
+<meta property="article:tag" content="project">
+<meta property="article:tag" content="regexp">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  <title>正则三剑客 - qizidog小窝</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"qizidog.github.io","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>qizidog小窝</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/images/post.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="正则三剑客">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-05-05 00:12" pubdate>
+        2022年5月5日 凌晨
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      6.8k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      22 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">正则三剑客</h1>
+            
+            <div class="markdown-body">
+              <h2 id="基础正则"><a href="#基础正则" class="headerlink" title="基础正则"></a>基础正则</h2><p><strong>Basic Regular Expression, BRE</strong></p>
+<p><code>^</code>  以……开头</p>
+<p><code>$</code>  以……结尾</p>
+<p><code>^$</code>  空行（这一行中没有任何元素）</p>
+<p><code>.</code>  代表任何一个字符（但是不包括空行）</p>
+<p><code>\</code>  转译符</p>
+<p><code>*</code>   前一个字符连续出现0次或0次以上</p>
+<p><code>.*</code>  所有内容、任意内容（包含空行）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><pre><code class="hljs bash">grep <span class="hljs-string">&#x27;^.*o&#x27;</span> test.txt  <span class="hljs-comment"># 匹配从开头第一个字符到字符o的所有内容（贪婪匹配，会直接匹配到最后一个o）</span><br></code></pre></td></tr></table></figure>
+
+<p><code>[]</code>  匹配指定的任何一个字符</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep <span class="hljs-string">&#x27;[abc]&#x27;</span> test.txt  <span class="hljs-comment"># 匹配a或b或c</span><br><span class="hljs-comment"># [a-z]  [A-Z]  [0-9]  [a-zA-Z0-9]  [a-Z0-9]</span><br><span class="hljs-comment"># 中括号内的字符一般都会被去除特殊含义，比如 [a-z,0-9] 表示匹配小写字母或逗号或数字</span><br><span class="hljs-comment"># [^abc] 中括号里面第一个^表示取反，即除了abc以外的字符</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="拓展正则"><a href="#拓展正则" class="headerlink" title="拓展正则"></a>拓展正则</h2><p><strong>Extended Regular Expression, ERE</strong></p>
+<p><code>+</code>  前一个字符连续出现1次或1次以上</p>
+<p><code>|</code>  或者  比如 ‘qizidog|qizizhou’ 匹配qizidog或者qizizhou（中括号是或者单个字符，竖线是或者两个部分）</p>
+<p><code>()</code>  一般来说有两种用法：被括起来的部分相当于一个整体；后/反向引用</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 以下三种写法均表示匹配oldboy或者oldbey</span><br>grep -E <span class="hljs-string">&#x27;oldboy|oldbey&#x27;</span> test.txt<br>grep -E <span class="hljs-string">&#x27;oldb[oe]y&#x27;</span> test.txt<br>grep -E <span class="hljs-string">&#x27;oldb(o|e)y&#x27;</span> test.txt<br></code></pre></td></tr></table></figure>
+
+<p><code>&#123;&#125;</code>  ‘o{m,n}’ 前一个字母o，至少连续出现了m次，至多连续出现n次（贪婪匹配）；’o{m}’ 前一个字母o，恰好连续出现了m次；’o{m,}’ 前一个字母o，至少连续出现了m次；’o{,n}’ 前一个字母o，至多连续出现了n次</p>
+<p><code>?</code>  前一个字符出现了0次或1次</p>
+<h2 id="三剑客"><a href="#三剑客" class="headerlink" title="三剑客"></a>三剑客</h2><p>三剑客成员</p>
+<table>
+<thead>
+<tr>
+<th>command</th>
+<th>function</th>
+<th>场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>grep</td>
+<td>过滤</td>
+<td>过滤速度很快</td>
+</tr>
+<tr>
+<td>sed</td>
+<td>替换、取行</td>
+<td>需要替换/修改文件内容，取出某个范围的内容</td>
+</tr>
+<tr>
+<td>awk</td>
+<td>取列、统计</td>
+<td>取列、比较、统计计算</td>
+</tr>
+</tbody></table>
+<h3 id="grep"><a href="#grep" class="headerlink" title="grep"></a>grep</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -A  <span class="hljs-comment"># after，A5表示显示匹配对象后5行；在匹配上的对象后面加上一个分隔符号（默认是$）</span><br>     -B  <span class="hljs-comment"># before，B5表示显示匹配对象前5行</span><br>     -C  <span class="hljs-comment"># context，C5表示显示匹配对象前后各5行</span><br>     -E  <span class="hljs-comment"># 使用拓展正则（grep默认使用基础正则），也可以使用egrep命令</span><br>     -c  <span class="hljs-comment"># 统计被匹配项出现的行数，类似于wc -l</span><br>     -e  <span class="hljs-comment"># 基础正则表达式</span><br>     -i  <span class="hljs-comment"># 忽略大小写</span><br>     -n  <span class="hljs-comment"># 显示行号</span><br>     -v  <span class="hljs-comment"># 反向匹配（有匹配字符的不要）</span><br>     -w  <span class="hljs-comment"># 精确匹配，也可以通过在正则中使用转译符`\b`或者`\&lt;`和`\&gt;`来指定边界</span><br>     -o  <span class="hljs-comment"># 只输出匹配上的部分（查看匹配过程，一次一行）</span><br>     -r  <span class="hljs-comment"># 递归查找每一个子文件夹</span><br></code></pre></td></tr></table></figure>
+
+<p>惯用写法：<code>ps -ef | grep &#39;python&#39; | grep -v grep | wc -l</code> 检查有多少个python后台进程（排除了grep自身的这一个进程），也可以用这种写法 <code>ps -ef | grep &#39;[p]ython&#39; | wc -l</code>，通过一个中括号巧妙地避免了grep的过滤项和自身重名。</p>
+<p><strong>举例：</strong>取轨迹数据日志的订单id：<code>grep -E &#39;[0-9a-z]&#123;32&#125;&#39; traj-0110.log</code>。</p>
+<h3 id="sed"><a href="#sed" class="headerlink" title="sed"></a>sed</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">sed -n  <span class="hljs-comment"># 取消默认输出（不匹配的就不输出，类似于grep的-o）</span><br>	-E或-r  <span class="hljs-comment"># 使用拓展正则</span><br></code></pre></td></tr></table></figure>
+
+<p>示范命令：<code>sed -r &#39;s#oldboy#oldgirl#g&#39; oldboy.txt</code> </p>
+<p>sed命令核心功能：增删改查</p>
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>p</td>
+<td>显示 print</td>
+</tr>
+<tr>
+<td>d</td>
+<td>删除 delete</td>
+</tr>
+<tr>
+<td>cai</td>
+<td>增加 c/a/i</td>
+</tr>
+<tr>
+<td>s</td>
+<td>替换 substitute</td>
+</tr>
+</tbody></table>
+<p>sed命令执行过程：“找谁干啥”</p>
+<blockquote>
+<p><strong>查找p</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>查找格式</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>‘1p’  ‘2p’</td>
+<td>指定行号进行查找。’$p’表示最后一行</td>
+</tr>
+<tr>
+<td>‘1,5p’</td>
+<td>指定行号范围进行查找。’4,$p’表示从第4行到最后一行</td>
+</tr>
+<tr>
+<td>‘/hello/p’</td>
+<td>类似于grep过滤，//里面可以写正则</td>
+</tr>
+<tr>
+<td>‘/10:00/,/11:00/p’</td>
+<td>输出从包含10:00到包含11:00的所有行（找日志常用）</td>
+</tr>
+<tr>
+<td>‘2,/hello/p’</td>
+<td>混合使用，输出从第2行开始到包含hello之间的所有行</td>
+</tr>
+</tbody></table>
+<p><strong>举例：</strong><code>sed -nE &#39;/18:1[0-9]:[0-9]&#123;2&#125;/,/18:1[0-9]:[0-9]&#123;2&#125;/p&#39; traj-0110.log </code> 找出[18:10, 18:20)范围内的所有日志。</p>
+<p>⚠️注意，使用范围查询时，如果起始行找不到匹配，那么无论结束行是否能够被匹配，结果输出都为空（因为没有开始）；如果找到了起始行，但没有找到结束行，那么从起始行开始一直到最后的所有内容都会被输出。</p>
+<blockquote>
+<p><strong>删除d</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>删除格式</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>‘1d’  ‘2d’</td>
+<td>指定行号进行删除。’$p’表示最后一行</td>
+</tr>
+<tr>
+<td>‘1,5d’</td>
+<td>指定行号范围进行删除。’4,$p’表示从第4行到最后一行</td>
+</tr>
+<tr>
+<td>‘/hello/d’</td>
+<td>删除包含hello的行，//里面可以写正则</td>
+</tr>
+<tr>
+<td>‘/10:00/,/11:00/d’</td>
+<td>删除从包含10:00到包含11:00的所有行（找日志常用）</td>
+</tr>
+<tr>
+<td>‘2,/hello/d’</td>
+<td>混合使用，删除从第2行开始到包含hello之间的所有行</td>
+</tr>
+</tbody></table>
+<p>删除操作是不会直接修改原始文件的。</p>
+<p><strong>举例：</strong>删除（不显示）文件中的空行和注释行：</p>
+<ul>
+<li><code>grep -vE &#39;^$|^#&#39; /etc/ssh/ssh_config</code></li>
+<li><code>sed -E &#39;/^$|^#/d&#39; /etc/ssh/ssh_config</code></li>
+<li><code>sed -nE &#39;/^$|^#/!p&#39; /etc/ssh/ssh_config</code>  <code>!</code>表示取反，即遇到空行和注释行则不显示输出</li>
+</ul>
+<blockquote>
+<p><strong>增加cai</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>c</td>
+<td>replace，替代这一行</td>
+</tr>
+<tr>
+<td>a</td>
+<td>append，在指定行的下一行追加内容</td>
+</tr>
+<tr>
+<td>i</td>
+<td>insert，在指定行的前一行插入内容</td>
+</tr>
+</tbody></table>
+<p><strong>举例：</strong>向config文件中追加一些配置内容：</p>
+<ul>
+<li><code>cat &gt;&gt; config &lt;&lt; &#39;EOF&#39;</code>  这个方法会直接修改原始文件，直接把后面输的内容追加到了文件的最后。<br>UseDNS no<br>PermitRootLogin no<br>EOF</li>
+<li><code>sed &#39;$a UseDNS no\nPermitRootLogin no&#39; config</code>  <code>$a</code>后面的那一个空格加不加都可以，加上更易读一点。此方法不会修改原始文件，而是将修改的结果输出到屏幕，可以通过重定向来写入新的文件。</li>
+</ul>
+<blockquote>
+<p><strong>替换s</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>替换格式</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>s###g</td>
+<td>中间是三个相同的符号就行，比如3个#、/、2都可以。<br>井号之间分别放替换前和替换后的内容。</td>
+</tr>
+</tbody></table>
+<ul>
+<li><code>g</code>：global全局替换的意思，如果不加g，只会替换第一个满足条件的值。</li>
+<li>后向引用：先保护，再使用。用小括号把要引用的内容括起来，在替换项处再通过<code>反斜杠+数字</code>来引用。</li>
+</ul>
+<p><strong>举例：</strong></p>
+<ul>
+<li>删除所有的数字：<code>sed &#39;s#[0-9]##g&#39; traj.log</code> </li>
+<li>将所有的uuid用两个五角星包裹起来：<code>sed -E &#39;s#([0-9a-z]&#123;32&#125;)#⭐️\1⭐️#g&#39; traj.log</code> </li>
+<li>取出指定网卡的ip地址：<ul>
+<li><code>ip addr show eth0 | sed -n &#39;3p&#39; | sed -E &#39;s#.*t (.*)/.*#\1#g&#39;</code> 其中第一段可以简写为 <code>ip a s eth0</code>。</li>
+<li><code>ip a s eth0 | sed -nE &#39;3s#.*t (.*)/.*#\1#gp&#39;</code> 后两段简写到了一起。</li>
+</ul>
+</li>
+<li>取轨迹数据日志的订单id：<code>sed -nE &#39;s#.*: ([0-9a-z]&#123;32&#125;) .*#\1#gp&#39; traj-0110.log</code>。 </li>
+</ul>
+<p>⚠️mac中的sed命令是基于BSD的，而linux中的sed是基于GNU的，<a target="_blank" rel="noopener" href="https://blog.csdn.net/sun_wangdong/article/details/71078083">在mac中使用sed命令的时候需要换行写</a>，体验不怎么样，所以还是装一个GNU的来代替原本的sed比较好。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">brew install gnu-sed<br><span class="hljs-comment"># 把别名规则写入配置文件（如果不写，也可以直接使用gsed）</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&#x27;alias sed=gsed&#x27;</span> &gt;&gt; ~/.zshrc<br></code></pre></td></tr></table></figure>
+
+<h3 id="awk"><a href="#awk" class="headerlink" title="awk"></a>awk</h3><p>awk语法与c语言类似，是一种处理文本文件的语言，是一个强大的文本分析工具。</p>
+<p><strong>awk公式：awk + 选项 + ‘pattern{action}’</strong></p>
+<p>使用awk需要了解行和列两个基本的概念：</p>
+<ul>
+<li>行：record，记录，每一行默认通过回车分割。</li>
+<li>列：field，字段，每一列默认通过空格、连续空格、制表符分割。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">awk -F  <span class="hljs-comment"># 指定列分隔符（默认支持拓展正则！）</span><br>	-v  <span class="hljs-comment"># 修改awk变量</span><br></code></pre></td></tr></table></figure>
+
+<p>示范命令：<code>awk -F, &#39;BEGIN&#123;print &quot;name&quot;&#125;NR==2&#123;print $2&#125;END&#123;print &quot;end of file&quot;&#125;&#39; oldboy.txt</code> </p>
+<blockquote>
+<p><strong>awk内置变量</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>var</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>NR</td>
+<td>Number of Record 行号</td>
+</tr>
+<tr>
+<td>NF</td>
+<td>Number of Field 列数</td>
+</tr>
+<tr>
+<td>FS</td>
+<td>Field Separator 字段分隔符（-F:相当于-v FS=:）</td>
+</tr>
+<tr>
+<td>OFS</td>
+<td>Output Field Separator 输出字段分隔符</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>取行</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>NR==1</td>
+<td>取第一行</td>
+</tr>
+<tr>
+<td>NR&gt;=1&amp;&amp;NR&lt;=10</td>
+<td>取第1-10行</td>
+</tr>
+<tr>
+<td>/hello/</td>
+<td>取包含“hello”的行</td>
+</tr>
+<tr>
+<td>/10:00/,/11:00/</td>
+<td>取包含“10:00”到包含“11:00”之间的行</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>取列</strong></p>
+</blockquote>
+<ul>
+<li><code>-F</code> 参数：指定列分隔符</li>
+<li><code>$n</code>：取第n列，其中 <code>$0</code> 表示所有列，<code>$NF</code> 表示最后一列</li>
+</ul>
+<p><strong>举例：</strong></p>
+<ul>
+<li>取出第5列和第7列：<code>ls -al . | awk &#39;&#123;print $5,$7&#125;&#39; | column -t</code> </li>
+<li>同时指定行数：<code>ls -al . | awk &#39;NR==3||NR==5&#123;print $5,$7&#125;&#39; | column -t</code> </li>
+<li>取出所有的用户名：<code>grep -vE &#39;^$|^#&#39; /etc/passwd | awk -F : &#39;&#123;print $1&#125;&#39;</code> </li>
+<li>取出所有的用户名和家目录，并用⭐️分隔：<code>grep -vE &#39;^$|^#&#39; /etc/passwd | awk -F : &#39;&#123;print $1&quot;⭐&quot;$NF&#125;&#39;</code> </li>
+<li>将第1列和最后一列的位置交换输出（分隔符维持原样）：<code>grep -vE &#39;^$|^#&#39; /etc/passwd | awk -F : -v OFS=: &#39;&#123;print $NF,$2,$3,$4,$5,$6,$1&#125;&#39;</code> </li>
+<li>取出指定网卡的ip地址：<code>ip a s eth0 | awk -F&quot;[ /]+&quot; &#39;NR==3&#123;print $3&#125;&#39;</code> </li>
+</ul>
+<p>⚠️awk后的条件应该使用单引号包裹，因为双引号中的$代表变量，如果使用双引号则需要在取列时加上转译符。此外，awk中的字母都会被识别成变量，如果只是想使用字符串，需要将字母用双引号包裹起来。</p>
+<blockquote>
+<p><strong>awk模式匹配——正则匹配</strong></p>
+</blockquote>
+<p>通过模式匹配可以直接抓取某一列满足特定条件的信息，默认支持拓展正则。</p>
+<ul>
+<li><code>~</code> 表示服从后续的正则</li>
+<li><code>!~</code> 表示不服从后续的正则</li>
+</ul>
+<p><strong>举例：</strong>找到第3列以1开头的行，输出这行的第1列和第3列</p>
+<ul>
+<li><code>grep -vE &#39;^$|^#&#39; /etc/passwd | awk -F: &#39;$3~/^1/&#123;print $1,$3&#125;&#39;</code></li>
+</ul>
+<blockquote>
+<p><strong>awk模式匹配——范围模式</strong></p>
+</blockquote>
+<ul>
+<li><code>/pattern1/,/pattern2/</code>：从满足pattern1的行到满足pattern2的行</li>
+<li><code>NR==2,NR==10</code>：从第2行到第10行</li>
+</ul>
+<blockquote>
+<p><strong>awk模式匹配——特殊模式</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>特殊模式</th>
+<th>应用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>BEGIN{}</td>
+<td>1）进行简单统计计算，一般不涉及读取文件<br/>2）添加表头<br/>3）用来定义awk变量（很少用，因为可以用-v）</td>
+</tr>
+<tr>
+<td>END{}</td>
+<td>1）输出统计结果<br/>2）输出数组结果</td>
+</tr>
+</tbody></table>
+<p><strong>举例：</strong></p>
+<ul>
+<li>统计空行和注释行的行数：<code>awk &#39;/^$|^#/&#123;i++&#125;END&#123;print i&#125;&#39; /etc/service</code>  i是变量名，可以随便取</li>
+<li>求和1-100：<code>seq 100 | awk &#39;&#123;sum+=$1&#125;END&#123;print sum&#125;&#39;</code>  sum是变量名，可以随便取</li>
+</ul>
+<blockquote>
+<p><strong>awk数组</strong></p>
+</blockquote>
+<p>应用场景： 统计每个IP出现的次数、统计每种状态码出现的次数、统计每个AP消耗的流量… 类似于group by。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>shell数组</th>
+<th>awk数组</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>形式</td>
+<td>array[0]=hello array[1]=world</td>
+<td>array[0]=hello array[1]=world</td>
+</tr>
+<tr>
+<td>使用</td>
+<td><code>echo $&#123;array[0]&#125; $&#123;array[1]&#125;</code></td>
+<td><code>print array[0] array[1]</code></td>
+</tr>
+<tr>
+<td>遍历</td>
+<td>for i in ${array[*]}<br />do<br />    echo $i<br />done</td>
+<td>for(i in array)<br />    print array[i]</td>
+</tr>
+</tbody></table>
+<p><strong>举例：</strong></p>
+<ul>
+<li>输出hello world：<code>awk &#39;BEGIN&#123;a[0]=&quot;hello&quot;;a[1]=&quot;world&quot;; for(i in a) print a[i]&#125;&#39;</code>  </li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 处理下文件内容，统计各域名出现的次数并排序</span><br>http://www.etiantian.org/index.html<br>http://www.etiantian.org/1.html<br>http://post.etiantian.org/index.html<br>http://mp3.etiantian.org/index.html<br>http://www.etiantian.org/3.html<br>http://post.etiantian.org/2.html<br><br><span class="hljs-comment"># 即统计下面各域名出现的次数</span><br>www.etiantian.org<br>post.etiantian.org<br>mp3.etiantian.org<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>grep -v &#39;^#&#39; test | awk -F &quot;/|//&quot; &#39;&#123;arr[$2]++&#125;END&#123;for(i in arr) print i,arr[i]&#125;&#39;</code>  通过grep去除注释信息</li>
+<li><code>sed -n &#39;2,$p&#39; test | awk -F &quot;/+&quot; &#39;&#123;arr[$2]++&#125;END&#123;for (i in arr) print i,arr[i]&#125;&#39;</code>  通过sed去除第一行的注释信息</li>
+<li>在以上处理的基础上再追加一个管道排序：<code>xxx | sort -rnk 2</code>，r代表逆序，n是数字，k指定第2列</li>
+</ul>
+<blockquote>
+<p><strong>条件、循环</strong></p>
+</blockquote>
+<p>语法和java基本一致。</p>
+<p><strong>举例：</strong></p>
+<p>判断磁盘空间是否充足：<code>df -h | awk -F&quot;[ %]+&quot; &#39;NR&gt;1&#123;if($5&gt;=70) &#123;print $1,$5,&quot;❌&quot;&#125; else &#123;print $1,$5,&quot;✅&quot;&#125; &#125;&#39;</code>  </p>
+<p>统计这段话中字符数不小于4的单词：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># once upon a time, there is a dog called qizidog.</span><br>  <br><span class="hljs-built_in">echo</span> once upon a time, there is a dog called qizidog. | awk -F<span class="hljs-string">&quot;[. ]&quot;</span> <span class="hljs-string">&#x27;&#123;for(i=1;i&lt;=NF;i++) &#123;if(length($i)&gt;=4) print $i,length($i)&#125; &#125;&#x27;</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p><strong>笔记整理自：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1244y1e73a">https://www.bilibili.com/video/BV1244y1e73a</a></strong></p>
+<h2 id="人剑合一"><a href="#人剑合一" class="headerlink" title="人剑合一"></a>人剑合一</h2><h3 id="find"><a href="#find" class="headerlink" title="find"></a>find</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">find -f dir_name -name <span class="hljs-string">&#x27;pattern&#x27;</span>  <span class="hljs-comment"># 根据文件名在指定目录下搜索文件</span><br>find ~/Pictures -newer ~/Pictures/青羊宫.png -name <span class="hljs-string">&#x27;*.png&#x27;</span>  <span class="hljs-comment"># 寻找比指定文件新的满足条件的文件</span><br>find . -regex <span class="hljs-string">&#x27;.*\.[c|h]&#x27;</span>  <span class="hljs-comment"># 使用正则表达式搜索以.c或.h结尾的文件</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="ack"><a href="#ack" class="headerlink" title="ack"></a>ack</h3><p>ack在执行搜索的过程中会自动忽略主流版本控制软件的相关目录，比如 <code>.git</code> 和 <code>.svn</code>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">ack [options] PATTERN [FILE...]<br>ack -f [options] [DIRECTORY...]<br></code></pre></td></tr></table></figure>
+
+<p>mac的ack支持 <code>--range-start</code> 和 <code>--range-end</code> 两个参数。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/linux/">linux</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/project/">project</a>
+                    
+                      <a class="hover-with-bg" href="/tags/regexp/">regexp</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/05/05/tmux%E7%BB%88%E7%AB%AF%E5%A4%8D%E7%94%A8%E7%A5%9E%E5%99%A8/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">终端复用神器——tmux</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/11/23/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2/">
+                        <span class="hidden-mobile">卡尔曼滤波</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

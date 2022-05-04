@@ -13,10 +13,10 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="latex折腾笔记">
   <meta name="author" content="qizidog">
   <meta name="keywords" content="">
-  <meta name="description" content="latex折腾笔记">
+  
+    <meta name="description" content="latex折腾笔记">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LatexNote">
 <meta property="og:url" content="https://qizidog.github.io/2021/11/23/LatexNote/index.html">
@@ -28,6 +28,7 @@
 <meta property="article:author" content="qizidog">
 <meta property="article:tag" content="latex">
 <meta name="twitter:card" content="summary_large_image">
+  
   
   <title>LatexNote - qizidog小窝</title>
 
@@ -66,7 +67,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"qizidog.github.io","root":"/","version":"1.8.12","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"qizidog.github.io","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -256,7 +257,7 @@
 <p>根据我个人的偏好，选择使用BasicTex，编辑器配合VSCode和LaTex Workshop使用，颜值和极客风俱备！</p>
 <p>由于国外下载网站实在太慢了，这里可以选择使用<a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/ctan/systems/mac/mactex/">清华源镜像</a>。也有人说可以通过brew来安装，但是教程有点老了，也可能是我用了中科大镜像的原因，brew里面搜不到basictex源，所以这里暂且按下不表。</p>
 <p>官网下载BasicTex安装包后一路确认安装即可，值得注意的是，安装完成后，不会生成任何的app启动图标（MacTex会生成四五个冗杂的app启动图标）。通过以下命令检查是否安装完成！</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">latex -v<br>xetex -v<br>tlmgr --<span class="hljs-built_in">help</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><pre><code class="hljs bash">latex -v<br>xetex -v<br>tlmgr --<span class="hljs-built_in">help</span><br></code></pre></td></tr></table></figure>
 
 <p>如果没有报 <code>command not found</code> 的错误，则安装成功。</p>
 <p>有个值得梳理的点，由于BasicTex安装后“没有任何文件生成”，我们对BasicTex的安装位置、安装内容一无所知，这肯定是不行的！关于这一点，官网的 <a target="_blank" rel="noopener" href="http://www.tug.org/mactex/What_Is_Installed.pdf">What Is Installed</a> 有比较详细的介绍，我也在这上面花了不少心思，这里做个简单梳理。</p>
@@ -532,7 +533,7 @@
       var typing = Fluid.plugins.typing;
       var title = document.getElementById('subtitle').title;
       
-      typing(title)
+        typing(title);
       
     })(window, document);
   </script>
