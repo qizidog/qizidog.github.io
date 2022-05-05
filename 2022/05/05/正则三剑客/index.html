@@ -43,7 +43,7 @@
     
     
       
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/gml.min.css" />
     
   
 
@@ -247,10 +247,10 @@
 <p><code>\</code>  转译符</p>
 <p><code>*</code>   前一个字符连续出现0次或0次以上</p>
 <p><code>.*</code>  所有内容、任意内容（包含空行）</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><pre><code class="hljs bash">grep <span class="hljs-string">&#x27;^.*o&#x27;</span> test.txt  <span class="hljs-comment"># 匹配从开头第一个字符到字符o的所有内容（贪婪匹配，会直接匹配到最后一个o）</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">grep <span class="hljs-string">&#x27;^.*o&#x27;</span> test.txt  <span class="hljs-comment"># 匹配从开头第一个字符到字符o的所有内容（贪婪匹配，会直接匹配到最后一个o）</span><br></code></pre></div></td></tr></table></figure>
 
 <p><code>[]</code>  匹配指定的任何一个字符</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep <span class="hljs-string">&#x27;[abc]&#x27;</span> test.txt  <span class="hljs-comment"># 匹配a或b或c</span><br><span class="hljs-comment"># [a-z]  [A-Z]  [0-9]  [a-zA-Z0-9]  [a-Z0-9]</span><br><span class="hljs-comment"># 中括号内的字符一般都会被去除特殊含义，比如 [a-z,0-9] 表示匹配小写字母或逗号或数字</span><br><span class="hljs-comment"># [^abc] 中括号里面第一个^表示取反，即除了abc以外的字符</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">grep <span class="hljs-string">&#x27;[abc]&#x27;</span> test.txt  <span class="hljs-comment"># 匹配a或b或c</span><br><span class="hljs-comment"># [a-z]  [A-Z]  [0-9]  [a-zA-Z0-9]  [a-Z0-9]</span><br><span class="hljs-comment"># 中括号内的字符一般都会被去除特殊含义，比如 [a-z,0-9] 表示匹配小写字母或逗号或数字</span><br><span class="hljs-comment"># [^abc] 中括号里面第一个^表示取反，即除了abc以外的字符</span><br></code></pre></div></td></tr></table></figure>
 
 
 
@@ -258,7 +258,7 @@
 <p><code>+</code>  前一个字符连续出现1次或1次以上</p>
 <p><code>|</code>  或者  比如 ‘qizidog|qizizhou’ 匹配qizidog或者qizizhou（中括号是或者单个字符，竖线是或者两个部分）</p>
 <p><code>()</code>  一般来说有两种用法：被括起来的部分相当于一个整体；后/反向引用</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 以下三种写法均表示匹配oldboy或者oldbey</span><br>grep -E <span class="hljs-string">&#x27;oldboy|oldbey&#x27;</span> test.txt<br>grep -E <span class="hljs-string">&#x27;oldb[oe]y&#x27;</span> test.txt<br>grep -E <span class="hljs-string">&#x27;oldb(o|e)y&#x27;</span> test.txt<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash"><span class="hljs-comment"># 以下三种写法均表示匹配oldboy或者oldbey</span><br>grep -E <span class="hljs-string">&#x27;oldboy|oldbey&#x27;</span> test.txt<br>grep -E <span class="hljs-string">&#x27;oldb[oe]y&#x27;</span> test.txt<br>grep -E <span class="hljs-string">&#x27;oldb(o|e)y&#x27;</span> test.txt<br></code></pre></div></td></tr></table></figure>
 
 <p><code>&#123;&#125;</code>  ‘o{m,n}’ 前一个字母o，至少连续出现了m次，至多连续出现n次（贪婪匹配）；’o{m}’ 前一个字母o，恰好连续出现了m次；’o{m,}’ 前一个字母o，至少连续出现了m次；’o{,n}’ 前一个字母o，至多连续出现了n次</p>
 <p><code>?</code>  前一个字符出现了0次或1次</p>
@@ -287,11 +287,11 @@
 <td>取列、比较、统计计算</td>
 </tr>
 </tbody></table>
-<h3 id="grep"><a href="#grep" class="headerlink" title="grep"></a>grep</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -A  <span class="hljs-comment"># after，A5表示显示匹配对象后5行；在匹配上的对象后面加上一个分隔符号（默认是$）</span><br>     -B  <span class="hljs-comment"># before，B5表示显示匹配对象前5行</span><br>     -C  <span class="hljs-comment"># context，C5表示显示匹配对象前后各5行</span><br>     -E  <span class="hljs-comment"># 使用拓展正则（grep默认使用基础正则），也可以使用egrep命令</span><br>     -c  <span class="hljs-comment"># 统计被匹配项出现的行数，类似于wc -l</span><br>     -e  <span class="hljs-comment"># 基础正则表达式</span><br>     -i  <span class="hljs-comment"># 忽略大小写</span><br>     -n  <span class="hljs-comment"># 显示行号</span><br>     -v  <span class="hljs-comment"># 反向匹配（有匹配字符的不要）</span><br>     -w  <span class="hljs-comment"># 精确匹配，也可以通过在正则中使用转译符`\b`或者`\&lt;`和`\&gt;`来指定边界</span><br>     -o  <span class="hljs-comment"># 只输出匹配上的部分（查看匹配过程，一次一行）</span><br>     -r  <span class="hljs-comment"># 递归查找每一个子文件夹</span><br></code></pre></td></tr></table></figure>
+<h3 id="grep"><a href="#grep" class="headerlink" title="grep"></a>grep</h3><figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">grep -A  <span class="hljs-comment"># after，A5表示显示匹配对象后5行；在匹配上的对象后面加上一个分隔符号（默认是$）</span><br>     -B  <span class="hljs-comment"># before，B5表示显示匹配对象前5行</span><br>     -C  <span class="hljs-comment"># context，C5表示显示匹配对象前后各5行</span><br>     -E  <span class="hljs-comment"># 使用拓展正则（grep默认使用基础正则），也可以使用egrep命令</span><br>     -c  <span class="hljs-comment"># 统计被匹配项出现的行数，类似于wc -l</span><br>     -e  <span class="hljs-comment"># 基础正则表达式</span><br>     -i  <span class="hljs-comment"># 忽略大小写</span><br>     -n  <span class="hljs-comment"># 显示行号</span><br>     -v  <span class="hljs-comment"># 反向匹配（有匹配字符的不要）</span><br>     -w  <span class="hljs-comment"># 精确匹配，也可以通过在正则中使用转译符`\b`或者`\&lt;`和`\&gt;`来指定边界</span><br>     -o  <span class="hljs-comment"># 只输出匹配上的部分（查看匹配过程，一次一行）</span><br>     -r  <span class="hljs-comment"># 递归查找每一个子文件夹</span><br></code></pre></div></td></tr></table></figure>
 
 <p>惯用写法：<code>ps -ef | grep &#39;python&#39; | grep -v grep | wc -l</code> 检查有多少个python后台进程（排除了grep自身的这一个进程），也可以用这种写法 <code>ps -ef | grep &#39;[p]ython&#39; | wc -l</code>，通过一个中括号巧妙地避免了grep的过滤项和自身重名。</p>
 <p><strong>举例：</strong>取轨迹数据日志的订单id：<code>grep -E &#39;[0-9a-z]&#123;32&#125;&#39; traj-0110.log</code>。</p>
-<h3 id="sed"><a href="#sed" class="headerlink" title="sed"></a>sed</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">sed -n  <span class="hljs-comment"># 取消默认输出（不匹配的就不输出，类似于grep的-o）</span><br>	-E或-r  <span class="hljs-comment"># 使用拓展正则</span><br></code></pre></td></tr></table></figure>
+<h3 id="sed"><a href="#sed" class="headerlink" title="sed"></a>sed</h3><figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">sed -n  <span class="hljs-comment"># 取消默认输出（不匹配的就不输出，类似于grep的-o）</span><br>	-E或-r  <span class="hljs-comment"># 使用拓展正则</span><br></code></pre></div></td></tr></table></figure>
 
 <p>示范命令：<code>sed -r &#39;s#oldboy#oldgirl#g&#39; oldboy.txt</code> </p>
 <p>sed命令核心功能：增删改查</p>
@@ -450,7 +450,7 @@
 <li>取轨迹数据日志的订单id：<code>sed -nE &#39;s#.*: ([0-9a-z]&#123;32&#125;) .*#\1#gp&#39; traj-0110.log</code>。 </li>
 </ul>
 <p>⚠️mac中的sed命令是基于BSD的，而linux中的sed是基于GNU的，<a target="_blank" rel="noopener" href="https://blog.csdn.net/sun_wangdong/article/details/71078083">在mac中使用sed命令的时候需要换行写</a>，体验不怎么样，所以还是装一个GNU的来代替原本的sed比较好。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">brew install gnu-sed<br><span class="hljs-comment"># 把别名规则写入配置文件（如果不写，也可以直接使用gsed）</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&#x27;alias sed=gsed&#x27;</span> &gt;&gt; ~/.zshrc<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">brew install gnu-sed<br><span class="hljs-comment"># 把别名规则写入配置文件（如果不写，也可以直接使用gsed）</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&#x27;alias sed=gsed&#x27;</span> &gt;&gt; ~/.zshrc<br></code></pre></div></td></tr></table></figure>
 
 <h3 id="awk"><a href="#awk" class="headerlink" title="awk"></a>awk</h3><p>awk语法与c语言类似，是一种处理文本文件的语言，是一个强大的文本分析工具。</p>
 <p><strong>awk公式：awk + 选项 + ‘pattern{action}’</strong></p>
@@ -459,7 +459,7 @@
 <li>行：record，记录，每一行默认通过回车分割。</li>
 <li>列：field，字段，每一列默认通过空格、连续空格、制表符分割。</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">awk -F  <span class="hljs-comment"># 指定列分隔符（默认支持拓展正则！）</span><br>	-v  <span class="hljs-comment"># 修改awk变量</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">awk -F  <span class="hljs-comment"># 指定列分隔符（默认支持拓展正则！）</span><br>	-v  <span class="hljs-comment"># 修改awk变量</span><br></code></pre></div></td></tr></table></figure>
 
 <p>示范命令：<code>awk -F, &#39;BEGIN&#123;print &quot;name&quot;&#125;NR==2&#123;print $2&#125;END&#123;print &quot;end of file&quot;&#125;&#39; oldboy.txt</code> </p>
 <blockquote>
@@ -608,7 +608,7 @@
 <ul>
 <li>输出hello world：<code>awk &#39;BEGIN&#123;a[0]=&quot;hello&quot;;a[1]=&quot;world&quot;; for(i in a) print a[i]&#125;&#39;</code>  </li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 处理下文件内容，统计各域名出现的次数并排序</span><br>http://www.etiantian.org/index.html<br>http://www.etiantian.org/1.html<br>http://post.etiantian.org/index.html<br>http://mp3.etiantian.org/index.html<br>http://www.etiantian.org/3.html<br>http://post.etiantian.org/2.html<br><br><span class="hljs-comment"># 即统计下面各域名出现的次数</span><br>www.etiantian.org<br>post.etiantian.org<br>mp3.etiantian.org<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash"><span class="hljs-comment"># 处理下文件内容，统计各域名出现的次数并排序</span><br>http://www.etiantian.org/index.html<br>http://www.etiantian.org/1.html<br>http://post.etiantian.org/index.html<br>http://mp3.etiantian.org/index.html<br>http://www.etiantian.org/3.html<br>http://post.etiantian.org/2.html<br><br><span class="hljs-comment"># 即统计下面各域名出现的次数</span><br>www.etiantian.org<br>post.etiantian.org<br>mp3.etiantian.org<br></code></pre></div></td></tr></table></figure>
 
 <ul>
 <li><code>grep -v &#39;^#&#39; test | awk -F &quot;/|//&quot; &#39;&#123;arr[$2]++&#125;END&#123;for(i in arr) print i,arr[i]&#125;&#39;</code>  通过grep去除注释信息</li>
@@ -622,17 +622,17 @@
 <p><strong>举例：</strong></p>
 <p>判断磁盘空间是否充足：<code>df -h | awk -F&quot;[ %]+&quot; &#39;NR&gt;1&#123;if($5&gt;=70) &#123;print $1,$5,&quot;❌&quot;&#125; else &#123;print $1,$5,&quot;✅&quot;&#125; &#125;&#39;</code>  </p>
 <p>统计这段话中字符数不小于4的单词：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># once upon a time, there is a dog called qizidog.</span><br>  <br><span class="hljs-built_in">echo</span> once upon a time, there is a dog called qizidog. | awk -F<span class="hljs-string">&quot;[. ]&quot;</span> <span class="hljs-string">&#x27;&#123;for(i=1;i&lt;=NF;i++) &#123;if(length($i)&gt;=4) print $i,length($i)&#125; &#125;&#x27;</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash"><span class="hljs-comment"># once upon a time, there is a dog called qizidog.</span><br>  <br><span class="hljs-built_in">echo</span> once upon a time, there is a dog called qizidog. | awk -F<span class="hljs-string">&quot;[. ]&quot;</span> <span class="hljs-string">&#x27;&#123;for(i=1;i&lt;=NF;i++) &#123;if(length($i)&gt;=4) print $i,length($i)&#125; &#125;&#x27;</span><br></code></pre></div></td></tr></table></figure>
 
 
 
 <p><strong>笔记整理自：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1244y1e73a">https://www.bilibili.com/video/BV1244y1e73a</a></strong></p>
-<h2 id="人剑合一"><a href="#人剑合一" class="headerlink" title="人剑合一"></a>人剑合一</h2><h3 id="find"><a href="#find" class="headerlink" title="find"></a>find</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">find -f dir_name -name <span class="hljs-string">&#x27;pattern&#x27;</span>  <span class="hljs-comment"># 根据文件名在指定目录下搜索文件</span><br>find ~/Pictures -newer ~/Pictures/青羊宫.png -name <span class="hljs-string">&#x27;*.png&#x27;</span>  <span class="hljs-comment"># 寻找比指定文件新的满足条件的文件</span><br>find . -regex <span class="hljs-string">&#x27;.*\.[c|h]&#x27;</span>  <span class="hljs-comment"># 使用正则表达式搜索以.c或.h结尾的文件</span><br></code></pre></td></tr></table></figure>
+<h2 id="人剑合一"><a href="#人剑合一" class="headerlink" title="人剑合一"></a>人剑合一</h2><h3 id="find"><a href="#find" class="headerlink" title="find"></a>find</h3><figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">find -f dir_name -name <span class="hljs-string">&#x27;pattern&#x27;</span>  <span class="hljs-comment"># 根据文件名在指定目录下搜索文件</span><br>find ~/Pictures -newer ~/Pictures/青羊宫.png -name <span class="hljs-string">&#x27;*.png&#x27;</span>  <span class="hljs-comment"># 寻找比指定文件新的满足条件的文件</span><br>find . -regex <span class="hljs-string">&#x27;.*\.[c|h]&#x27;</span>  <span class="hljs-comment"># 使用正则表达式搜索以.c或.h结尾的文件</span><br></code></pre></div></td></tr></table></figure>
 
 
 
 <h3 id="ack"><a href="#ack" class="headerlink" title="ack"></a>ack</h3><p>ack在执行搜索的过程中会自动忽略主流版本控制软件的相关目录，比如 <code>.git</code> 和 <code>.svn</code>。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">ack [options] PATTERN [FILE...]<br>ack -f [options] [DIRECTORY...]<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">ack [options] PATTERN [FILE...]<br>ack -f [options] [DIRECTORY...]<br></code></pre></div></td></tr></table></figure>
 
 <p>mac的ack支持 <code>--range-start</code> 和 <code>--range-end</code> 两个参数。</p>
 
